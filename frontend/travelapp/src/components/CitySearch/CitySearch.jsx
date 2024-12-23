@@ -1,32 +1,43 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./CitySearch.css";
 
 const CitySearch = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [results, setResults] = useState([]);
+    const navigate = useNavigate();
 
-    const handleSearch = () => {
-        setResults([
-            { id: 1, name: "Paris" },
-            { id: 2, name: "New York" },
-            { id: 3, name: "Tokyo" },
-        ]);
+    const handleSearchChange = (e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+
+        if (query) {
+            setResults([
+                { id: 1, name: "London, England" },
+                { id: 2, name: "London, Ontario" },
+            ]);
+        } else {
+            setResults([]);
+        }
+    };
+
+    const handleCityClick = (city) => {
+        navigate("/city-card", { state: { city } });
     };
 
     return (
-        <div className="city-search">
-            <h1>Search for a City</h1>
+        <div className="search-bar">
             <input
                 type="text"
                 placeholder="Enter city name..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearchChange}
             />
-            <button onClick={handleSearch}>Search</button>
-
-            <ul>
+            <ul className="dropdown">
                 {results.map((city) => (
-                    <li key={city.id}>{city.name}</li>
+                    <li key={city.id} onClick={() => handleCityClick(city)}>
+                        {city.name}
+                    </li>
                 ))}
             </ul>
         </div>

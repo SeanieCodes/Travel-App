@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Calendar from "react-calendar";
-import CitySearch from "../CitySearch/CitySearch";
 import "react-calendar/dist/Calendar.css";
+import CitySearch from "../CitySearch/CitySearch";
 import "./Calendar.css";
 
 const MyCalendar = () => {
@@ -9,11 +9,9 @@ const MyCalendar = () => {
 
     return (
         <div className="calendar-page">
+            <h1>Travel Planner</h1>
             <CitySearch />
-            <div className="calendar-container">
-                <h1>Your Travel Calendar</h1>
-                <Calendar onChange={setDate} value={date} />
-            </div>
+            <Calendar onChange={setDate} value={date} />
         </div>
     );
 };
