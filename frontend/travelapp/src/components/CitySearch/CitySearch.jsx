@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CitySearch.css";
 
 const CitySearch = () => {
+
     const [searchQuery, setSearchQuery] = useState("");
     const [results, setResults] = useState([]);
     const navigate = useNavigate();
-
     const handleSearchChange = (e) => {
         const query = e.target.value;
         setSearchQuery(query);
@@ -33,13 +33,18 @@ const CitySearch = () => {
                 value={searchQuery}
                 onChange={handleSearchChange}
             />
-            <ul className="dropdown">
-                {results.map((city) => (
-                    <li key={city.id} onClick={() => handleCityClick(city)}>
-                        {city.name}
-                    </li>
-                ))}
-            </ul>
+            {results.length > 0 && (
+                <ul className="dropdown">
+                    {results.map((city) => (
+                        <li 
+                            key={city.id} 
+                            onClick={() => handleCityClick(city)}
+                        >
+                            {city.name}
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 };

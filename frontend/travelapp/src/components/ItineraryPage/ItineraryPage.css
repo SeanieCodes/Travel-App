@@ -1,0 +1,146 @@
+.itinerary-page {
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, var(--white), var(--gray));
+}
+
+.itinerary-page h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    color: var(--black);
+    letter-spacing: -0.5px;
+}
+
+.itinerary-container {
+    width: 800px;
+    max-width: 100%;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.date-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray);
+}
+
+.date-header h2 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+}
+
+.date-header h3 {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--dark-blue);
+}
+
+.add-activity {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.time-input {
+    width: 150px;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--gray);
+    color: var(--dark-blue);
+}
+
+.description-input {
+    flex: 1;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--gray);
+    color: var(--dark-blue);
+}
+
+.add-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--white);
+    background-color: var(--primary-blue);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-button:hover {
+    background-color: var(--dark-blue);
+    transform: translateY(-1px);
+}
+
+.activities-list {
+    margin-top: 2rem;
+}
+
+.activities-list h3 {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--dark-blue);
+    margin-bottom: 1rem;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    background-color: var(--gray);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.activity-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 10px var(--shadow);
+}
+
+.activity-time {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--primary-blue);
+    min-width: 100px;
+}
+
+.activity-description {
+    font-size: 1.2rem;
+    color: var(--dark-blue);
+    flex: 1;
+}
+
+.back-button {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--white);
+    background-color: var(--primary-blue);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    background-color: var(--dark-blue);
+    transform: translateY(-1px);
+}

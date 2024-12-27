@@ -15,11 +15,14 @@
     box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
     padding: 2rem;
     margin-top: 2rem;
+    display: flex;              
+    flex-direction: column;    
+    align-items: center; 
   }
   
   .city-card h1 {
     font-size: 2.5rem;
-    font-weight: 600;
+    font-weight: 300;
     margin: 0 0 1.5rem 0;
     color: var(--black);
     letter-spacing: -0.5px;
@@ -30,12 +33,18 @@
     line-height: 1.5;
     margin: 0.8rem 0;
     color: var(--dark-blue);
+    font-weight: 300;
+  }
+  
+  .city-card p strong {
+    font-weight: 500;
   }
   
   .city-card button {
     margin-top: 1.5rem;
     padding: 1rem 2rem;
     font-size: 1.2rem;
+    font-weight: 400;
     color: var(--white);
     background-color: var(--primary-blue);
     border: none;
