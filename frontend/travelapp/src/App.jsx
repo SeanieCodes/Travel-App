@@ -9,7 +9,7 @@ const App = () => {
 
     const [cityDates, setCityDates] = useState({});
     const assignCityToDate = (date, city) => {
-        setCityDates(prevDates => ({
+        setCityDates((prevDates) => ({
             ...prevDates,
             [date]: city
         }));

@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import CitySearch from '../CitySearch/CitySearch';
 import WeatherCard from '../WeatherCard/WeatherCard';
+import DateRangePicker from '../DateRangePicker/DateRangePicker';
 import './CityCard.css';
 
 const CityCard = ({ onDateSelect }) => {
@@ -10,9 +11,12 @@ const CityCard = ({ onDateSelect }) => {
     const location = useLocation();
     const city = location.state?.city || { name: "Unknown City" };
 
-    const handleDateSelect = (date) => {
-        const dateStr = date.toISOString().split('T')[0];
-        onDateSelect(dateStr, city);
+    const handleDateRangeSelect = (dateRange) => {
+        dateRange.forEach(date => {
+            const dateStr = date.toISOString().split('T')[0];
+            onDateSelect(dateStr, city);
+        });
+        navigate('/');
     };
 
     return (
@@ -21,8 +25,8 @@ const CityCard = ({ onDateSelect }) => {
             <div className="city-card">
                 <h1>{city.name}</h1>
                 <WeatherCard city={city} />
-                <Calendar onChange={handleDateSelect} />
-                <button onClick={() => navigate("/")}>
+                <DateRangePicker onDateRangeSelect={handleDateRangeSelect} />
+                <button onClick={() => navigate("/")} className="back-btn">
                     Back to Calendar
                 </button>
             </div>

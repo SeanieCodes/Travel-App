@@ -22,7 +22,7 @@ const CitySearch = () => {
     };
 
     const handleCityClick = (city) => {
-        navigate("/city-card", { state: { city } });
+        navigate("/city-card", { state: { city: city } });
     };
 
     return (

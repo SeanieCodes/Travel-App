@@ -11,19 +11,29 @@ const MyCalendar = ({ cityDates }) => {
         const formattedDate = date.toISOString().split('T')[0];
         navigate(`/itinerary/${formattedDate}`);
     };
-    const getTileContent = ({ date }) => {
+    const getTileContent = ({ date, view }) => {
+        if (view !== 'month') return null;
         const dateStr = date.toISOString().split('T')[0];
-        return cityDates[dateStr]?.name || '';
+        const cityName = cityDates[dateStr]?.name;
+
+        return cityName ? (
+            <div className="calendar-tile-content">
+                {cityName}
+            </div>
+        ) : null;
     };
 
     return (
         <div className="calendar-page">
             <h1>Travel Planner</h1>
-            <CitySearch />
-            <Calendar 
-                onChange={handleDateClick} 
-                tileContent={getTileContent}
-            />
+            <div className="calendar-container">
+                <CitySearch />
+                <Calendar 
+                    onChange={handleDateClick} 
+                    tileContent={getTileContent}
+                    className="main-calendar"
+                />
+            </div>
         </div>
     );
 };

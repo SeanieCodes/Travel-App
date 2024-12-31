@@ -1,0 +1,21 @@
+.date-range-selector h3 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 300;
+    font-size: 2rem;
+    color: var(--black);
+    letter-spacing: -0.5px;
+    margin-bottom: 1.5rem;
+}
+
+.react-datepicker,
+.react-datepicker__current-month,
+.react-datepicker__day,
+.react-datepicker__day-name {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 300 !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+    font-weight: 400 !important;
+}

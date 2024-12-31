@@ -57,3 +57,33 @@
     background-color: var(--dark-blue);
     transform: translateY(-1px);
   }
+
+  .date-picker-container {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.date-picker-container label {
+    font-size: 1.2rem;
+    color: var(--dark-blue);
+    font-weight: 300;
+}
+
+.date-picker {
+    padding: 1rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--gray);
+    color: var(--dark-blue);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.date-picker:hover {
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
