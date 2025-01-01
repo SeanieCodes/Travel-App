@@ -15,6 +15,8 @@
     background-color: var(--white);
     box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
     transition: all 0.2s ease;
+    color: var(--dark-blue) !important;
+    border: 2px solid var(--primary-blue) !important;
   }
   
   .search-bar input::placeholder {

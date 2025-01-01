@@ -1,25 +1,35 @@
 .calendar-page {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   min-height: 100vh;
-  padding: 2rem;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(to bottom, var(--white), var(--gray));
+  padding: 2rem;
+  background-repeat: repeat;
+  background-size: 300px auto;
+}
+
+.title-container {
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  background-color: var(--white);
+  border: 2px solid var(--primary-blue);
+  box-shadow: 0 4px 20px var(--shadow);
 }
 
 .calendar-page h1 {
-  width: fit-content;
-  margin: 0 auto 2rem;
+  margin: 0;
   font-size: 2.5rem;
   font-weight: 300;
+  color: var(--black);
   letter-spacing: -0.5px;
-  text-align: center;
-  color: var(--primary-blue);
-  text-shadow: 0 0 20px var(--glow);
-  padding: 1rem 2rem;
-  border: 2px solid var(--primary-blue);
-  border-radius: 12px;
-  box-shadow: 0 0 20px var(--glow);
 }
 
 .react-calendar {
@@ -30,6 +40,8 @@
   border-radius: 12px;
   box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow) !important;
   padding: 1rem !important;
+  color: var(--dark-blue) !important;
+  border: 2px solid var(--primary-blue) !important;
 }
 
 .react-calendar__month-view__days {
@@ -64,4 +76,12 @@
   color: var(--dark-blue) !important;
   width: 90% !important;
   text-align: center !important;
+}
+
+.search-bar {
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto 2rem auto;
+  position: relative;
+  transform: translateX(-20px);
 }

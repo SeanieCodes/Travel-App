@@ -11,8 +11,8 @@
     font-size: 2.5rem;
     font-weight: 300;
     margin-bottom: 2rem;
-    color: var(--black);
     letter-spacing: -0.5px;
+    color: var(--primary-blue);
 }
 
 .itinerary-container {
@@ -32,10 +32,15 @@
 }
 
 .date-header h2 {
+    width: fit-content;
+    margin: 0 auto 0.5rem auto;
     font-size: 1.8rem;
     font-weight: 300;
-    color: var(--black);
-    margin-bottom: 0.5rem;
+    color: var(--dark-blue);
+    padding: 1rem 2rem;
+    border: 2px solid var(--primary-blue);
+    border-radius: 12px;
+    box-shadow: 0 0 20px var(--glow);
 }
 
 .date-header h3 {
@@ -92,10 +97,15 @@
 }
 
 .activities-list h3 {
+    width: fit-content;
+    margin: 0 auto 1rem auto;
     font-size: 1.4rem;
     font-weight: 300;
     color: var(--dark-blue);
-    margin-bottom: 1rem;
+    padding: 1rem 2rem;
+    border: 2px solid var(--primary-blue);
+    border-radius: 12px;
+    box-shadow: 0 0 20px var(--glow);
 }
 
 .activity-item {

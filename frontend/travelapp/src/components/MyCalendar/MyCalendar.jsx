@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import CitySearch from '../CitySearch/CitySearch';
+import backgroundImage from '../../assets/TropicalIsland2.jpeg';
 import "react-calendar/dist/Calendar.css";
 import "./MyCalendar.css";
 
@@ -24,8 +25,13 @@ const MyCalendar = ({ cityDates }) => {
     };
 
     return (
-        <div className="calendar-page">
-            <h1>Travel Planner</h1>
+        <div 
+        className="calendar-page"
+        style={{ backgroundImage: `url(${backgroundImage})` 
+        }}>
+            <div className="title-container">
+            <h1>BlueHaven</h1>
+            </div>
             <div className="calendar-container">
                 <CitySearch />
                 <Calendar 
