@@ -54,7 +54,7 @@
   height: 100px !important;
   padding: 0 !important;
   position: relative !important;
-  background: var(--gray) !important;
+  background: rgba(255, 105, 180, 0.1) !important;
   border-radius: 8px !important;
 }
 
