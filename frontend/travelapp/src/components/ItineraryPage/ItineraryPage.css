@@ -126,7 +126,6 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
 }
 
 .add-button:hover {
@@ -196,7 +195,6 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
 }
 
 .back-button:hover {
