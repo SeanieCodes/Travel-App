@@ -4,8 +4,14 @@
     font-size: 2rem;
     letter-spacing: -0.5px;
     margin-bottom: 1.5rem;
-    color: var(--primary-pink);
+    color: var(--dark-blue);
     text-shadow: 0 0 20px var(--glow);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    background-color: var(--white);
+    border: 2px solid var(--primary-pink);
+    box-shadow: 0 0 20px var(--glow);
 }
 
 .react-datepicker,
