@@ -4,6 +4,7 @@ import Calendar from 'react-calendar';
 import CitySearch from '../CitySearch/CitySearch';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import DateRangePicker from '../DateRangePicker/DateRangePicker';
+import backgroundImage from '../../assets/pinkflower.avif';
 import './CityCard.css';
 
 const CityCard = ({ onDateSelect }) => {
@@ -20,7 +21,11 @@ const CityCard = ({ onDateSelect }) => {
     };
 
     return (
-        <div className="city-card-page">
+        <div
+        className="city-card-page"
+        style={{ backgroundImage: `url(${backgroundImage})` 
+        }}
+        >
             <CitySearch />
             <div className="city-card">
                 <h1>{city.name}</h1>

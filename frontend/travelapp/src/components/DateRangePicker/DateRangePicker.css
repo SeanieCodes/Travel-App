@@ -4,7 +4,7 @@
     font-size: 2rem;
     letter-spacing: -0.5px;
     margin-bottom: 1.5rem;
-    color: var(--primary-blue);
+    color: var(--primary-pink);
     text-shadow: 0 0 20px var(--glow);
 }
 
@@ -19,4 +19,29 @@
 .react-datepicker__current-month,
 .react-datepicker__day-name {
     font-weight: 400 !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range {
+    background-color: var(--primary-pink) !important;
+    color: var(--white) !important;
+}
+
+.react-datepicker__day--selected:hover,
+.react-datepicker__day--in-range:hover {
+    background-color: var(--primary-pink) !important;
+    opacity: 0.8;
+}
+
+.react-datepicker__day--today {
+    background-color: var(--primary-pink) !important;  
+    color: black !important; 
+    font-weight: 400 !important;
+    border-radius: 0.3rem !important;
+}
+
+.react-datepicker__day--today:hover {
+    background-color: var(--primary-pink) !important;
+    opacity: 0.8;  
+    color: black !important;
 }

@@ -28,7 +28,7 @@
     font-weight: 300;
     color: var(--dark-blue);
     padding: 1rem 2rem;
-    border: 2px solid var(--primary-blue);
+    border: 2px solid var(--primary-pink);
     border-radius: 12px;
     box-shadow: 0 0 20px var(--glow);
 }
@@ -45,7 +45,7 @@
     padding: 0.8rem;
     border-radius: 8px;
     padding: 1rem 2rem;
-    border: 2px solid var(--primary-blue);
+    border: 2px solid var(--primary-pink);
     border-radius: 12px;
     box-shadow: 0 0 20px var(--glow);
 }

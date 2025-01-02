@@ -22,6 +22,8 @@ const CitySearch = () => {
     };
 
     const handleCityClick = (city) => {
+        setSearchQuery("");
+        setResults([]);  
         navigate("/city-card", { state: { city: city } });
     };
 

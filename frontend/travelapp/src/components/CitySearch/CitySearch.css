@@ -15,9 +15,14 @@
     background-color: var(--white);
     box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
     transition: all 0.2s ease;
-    color: var(--dark-blue) !important;
-    border: 2px solid var(--primary-blue) !important;
-  }
+    border: 2px solid var(--primary-pink);  /* Add this line for the default border */
+}
+
+.search-bar input:focus {
+    outline: none;  /* Remove the default browser outline */
+    border: 2px solid var(--primary-pink);  /* Keep the pink border when focused */
+    box-shadow: 0 4px 20px var(--shadow), 0 0 40px rgba(255, 105, 180, 0.2);  /* Optional: enhance the glow effect when focused */
+}
   
   .search-bar input::placeholder {
     color: #999;

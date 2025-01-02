@@ -2,12 +2,13 @@
 
 :root {
   --primary-blue: #61dafb;
+  --primary-pink: #f7aad0;
   --dark-blue: #2a3f54;
   --black: #000000;
   --white: #ffffff;
   --gray: #f5f5f7;
   --shadow: rgba(0, 0, 0, 0.1);
-  --glow: rgba(97, 218, 251, 0.2);
+  --glow: rgba(255, 105, 180, 0.2);
 }
 
 body {
