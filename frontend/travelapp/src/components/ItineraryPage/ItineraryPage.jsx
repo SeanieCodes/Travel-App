@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import backgroundImage from '../../assets/pinkflower.avif';
 import './ItineraryPage.css';
 
 const ItineraryPage = ({ cityDates }) => {
@@ -28,7 +29,11 @@ const ItineraryPage = ({ cityDates }) => {
     };
 
     return (
-        <div className="itinerary-page">
+        <div
+        className="itinerary-page"
+        style={{ backgroundImage: `url(${backgroundImage})` 
+        }}
+        >
             <h1>Plan Your Day</h1>
             <div className="itinerary-container">
                 <div className="date-header">
