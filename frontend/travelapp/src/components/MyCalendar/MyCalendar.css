@@ -93,7 +93,24 @@
   transform: translateX(-20px);
 }
 
+.react-calendar__navigation {
+  margin-bottom: 1rem !important;
+}
+
 .react-calendar__navigation button {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  font-weight: 300 !important;
+  font-size: 1.2rem !important; 
+  font-weight: 500 !important;  
+  color: var(--dark-blue) !important;
+}
+
+.react-calendar__navigation__label {
+  font-weight: 600 !important;  
+  font-size: 1.4rem !important; 
+  color: var(--primary-pink) !important;  
+}
+
+.react-calendar__navigation__arrow {
+  font-size: 1.2rem !important;
+  color: var(--dark-blue) !important;
 }
