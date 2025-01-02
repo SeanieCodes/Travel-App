@@ -42,12 +42,15 @@
   padding: 1rem !important;
   color: var(--dark-blue) !important;
   border: 2px solid var(--primary-pink) !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 .react-calendar__month-view__days {
   display: grid !important;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-weight: 300 !important;
 }
 
 .react-calendar__tile {
@@ -56,6 +59,8 @@
   position: relative !important;
   background: rgba(255, 105, 180, 0.1) !important;
   border-radius: 8px !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-weight: 300 !important;
 }
 
 .react-calendar__tile > abbr {
@@ -76,6 +81,8 @@
   color: var(--dark-blue) !important;
   width: 90% !important;
   text-align: center !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-weight: 300 !important;
 }
 
 .search-bar {
@@ -84,4 +91,9 @@
   margin: 0 auto 2rem auto;
   position: relative;
   transform: translateX(-20px);
+}
+
+.react-calendar__navigation button {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-weight: 300 !important;
 }
