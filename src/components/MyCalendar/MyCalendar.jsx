@@ -6,20 +6,25 @@ import "react-calendar/dist/Calendar.css";
 import "./MyCalendar.css";
 
 const MyCalendar = ({ cityDates }) => {
-    
     const navigate = useNavigate();
+    
+    const formatDateString = (date) => {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const day = date.getDate();
+        const monthStr = (month + 1).toString().padStart(2, '0');
+        const dayStr = day.toString().padStart(2, '0');
+        return `${year}-${monthStr}-${dayStr}`;
+    };
+
     const handleDateClick = (date) => {
-        const utcDate = new Date(Date.UTC(
-            date.getFullYear(),
-            date.getMonth(),
-            date.getDate()
-        ));
-        const formattedDate = utcDate.toISOString().split('T')[0];
+        const formattedDate = formatDateString(date);
         navigate(`/itinerary/${formattedDate}`);
     };
+
     const getTileContent = ({ date, view }) => {
         if (view !== 'month') return null;
-        const dateStr = date.toISOString().split('T')[0];
+        const dateStr = formatDateString(date);
         const cityName = cityDates[dateStr]?.name;
 
         return cityName ? (

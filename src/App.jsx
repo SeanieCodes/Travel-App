@@ -8,11 +8,27 @@ import ItineraryPage from './components/ItineraryPage/ItineraryPage';
 const App = () => {
 
     const [cityDates, setCityDates] = useState({});
+
+    const formatDateString = (date) => {
+        const d = new Date(date);
+        const year = d.getFullYear();
+        const month = (d.getMonth() + 1).toString().padStart(2, '0');
+        const day = d.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     const assignCityToDate = (date, city) => {
-        setCityDates((prevDates) => ({
-            ...prevDates,
-            [date]: city
-        }));
+        const normalizedDate = formatDateString(date);
+        setCityDates((prevDates) => {
+            const cityData = {
+                id: city.id,
+                name: city.name
+            };
+            return {
+                ...prevDates,
+                [normalizedDate]: cityData
+            };
+        });
     };
 
     return (

@@ -7,22 +7,28 @@ const ItineraryPage = ({ cityDates }) => {
 
     const { date } = useParams();
     const navigate = useNavigate();
-    const cityForThisDate = cityDates?.[date];
+    const formatDateString = (dateStr) => {
+        const d = new Date(dateStr);
+        const year = d.getFullYear();
+        const month = (d.getMonth() + 1).toString().padStart(2, '0');
+        const day = d.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+    const normalizedDate = formatDateString(date);
+    const cityForThisDate = cityDates[normalizedDate];
     const [activities, setActivities] = useState([]);
-        const [newActivity, setNewActivity] = useState({
+    const [newActivity, setNewActivity] = useState({
         time: '',
         description: ''
     });
 
-    const utcDate = new Date(date + 'T00:00:00Z');
-    
+    const displayDate = new Date(date);
     const formattedDate = new Intl.DateTimeFormat('en-US', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
-        day: 'numeric',
-        timeZone: 'UTC'
-    }).format(utcDate);
+        day: 'numeric'
+    }).format(displayDate);
 
     const handleAddActivity = () => {
         if (newActivity.time && newActivity.description) {

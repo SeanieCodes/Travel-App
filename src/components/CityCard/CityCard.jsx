@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Calendar from 'react-calendar';
 import CitySearch from '../CitySearch/CitySearch';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import DateRangePicker from '../DateRangePicker/DateRangePicker';
@@ -12,9 +10,16 @@ const CityCard = ({ onDateSelect }) => {
     const location = useLocation();
     const city = location.state?.city || { name: "Unknown City" };
 
+    const formatDateString = (date) => {
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
     const handleDateRangeSelect = (dateRange) => {
         dateRange.forEach(date => {
-            const dateStr = date.toISOString().split('T')[0];
+            const dateStr = formatDateString(date);
             onDateSelect(dateStr, city);
         });
         navigate('/');
