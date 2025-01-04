@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getWeatherForCity } from '../../APIs/weatherAPI';
+import { getWeather } from '../../APIs/openWeatherAPI';
 import './WeatherCard.css';
 
 const WeatherCard = ({ city }) => {
@@ -10,7 +10,7 @@ const WeatherCard = ({ city }) => {
         async function loadWeather() {
             try {
                 setLoading(true);
-                const weatherData = await getWeatherForCity(city.name);
+                const weatherData = await getWeather(city);
                 setWeather(weatherData);
             } catch (error) {
                 console.error('Failed to load weather:', error);
@@ -42,12 +42,30 @@ const WeatherCard = ({ city }) => {
             <div className="weather-details">
                 <div className="weather-detail-item">
                     <span className="detail-label">Condition</span>
-                    <span className="detail-value">{weather.condition}</span>
+                    <span className="detail-value">
+                        {weather.condition}
+                    </span>
                 </div>
                 
                 <div className="weather-detail-item">
                     <span className="detail-label">Humidity</span>
-                    <span className="detail-value">{weather.humidity}%</span>
+                    <span className="detail-value">
+                        {weather.humidity}%
+                    </span>
+                </div>
+
+                <div className="weather-detail-item">
+                    <span className="detail-label">Wind Speed</span>
+                    <span className="detail-value">
+                        {weather.windSpeed} m/s
+                    </span>
+                </div>
+
+                <div className="weather-detail-item">
+                    <span className="detail-label">Description</span>
+                    <span className="detail-value">
+                        {weather.description}
+                    </span>
                 </div>
             </div>
         </div>
