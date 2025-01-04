@@ -9,7 +9,12 @@ const MyCalendar = ({ cityDates }) => {
     
     const navigate = useNavigate();
     const handleDateClick = (date) => {
-        const formattedDate = date.toISOString().split('T')[0];
+        const utcDate = new Date(Date.UTC(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate()
+        ));
+        const formattedDate = utcDate.toISOString().split('T')[0];
         navigate(`/itinerary/${formattedDate}`);
     };
     const getTileContent = ({ date, view }) => {

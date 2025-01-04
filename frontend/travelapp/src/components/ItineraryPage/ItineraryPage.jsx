@@ -14,12 +14,15 @@ const ItineraryPage = ({ cityDates }) => {
         description: ''
     });
 
-    const formattedDate = new Date(date).toLocaleDateString('en-US', {
+    const utcDate = new Date(date + 'T00:00:00Z');
+    
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
-        day: 'numeric'
-    });
+        day: 'numeric',
+        timeZone: 'UTC'
+    }).format(utcDate);
 
     const handleAddActivity = () => {
         if (newActivity.time && newActivity.description) {
