@@ -40,7 +40,7 @@ const MyCalendar = ({ cityDates }) => {
             style={{ backgroundImage: `url(${backgroundImage})` }}
         >
             <div className="title-container">
-                <h1>meridian</h1>
+                <h1>alcove</h1>
             </div>
             <div className="search-container-wrapper">
                 <CitySearch />

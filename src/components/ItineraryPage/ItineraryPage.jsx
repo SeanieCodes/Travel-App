@@ -4,44 +4,67 @@ import backgroundImage from '../../assets/pinkflower.avif';
 import './ItineraryPage.css';
 
 const ItineraryPage = ({ cityDates }) => {
-
     const { date } = useParams();
     const navigate = useNavigate();
-    const formatDateString = (dateStr) => {
-        const d = new Date(dateStr);
-        const year = d.getFullYear();
-        const month = (d.getMonth() + 1).toString().padStart(2, '0');
-        const day = d.getDate().toString().padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-    const normalizedDate = formatDateString(date);
-    const cityForThisDate = cityDates[normalizedDate];
+    const cityForThisDate = cityDates?.[date];
     const [activities, setActivities] = useState([]);
     const [newActivity, setNewActivity] = useState({
         time: '',
         description: ''
     });
+    const [editingIndex, setEditingIndex] = useState(null);
+    const [editActivity, setEditActivity] = useState({
+        time: '',
+        description: ''
+    });
 
-    const displayDate = new Date(date);
-    const formattedDate = new Intl.DateTimeFormat('en-US', {
+    const formattedDate = new Date(date).toLocaleDateString('en-US', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric'
-    }).format(displayDate);
+    });
 
     const handleAddActivity = () => {
         if (newActivity.time && newActivity.description) {
-            setActivities([...activities, newActivity]);
+            const updatedActivities = [...activities, newActivity]
+                .sort((a, b) => a.time.localeCompare(b.time));
+            setActivities(updatedActivities);
             setNewActivity({ time: '', description: '' });
         }
     };
 
+    const startEditing = (index) => {
+        setEditingIndex(index);
+        setEditActivity(activities[index]);
+    };
+
+    const cancelEditing = () => {
+        setEditingIndex(null);
+        setEditActivity({ time: '', description: '' });
+    };
+
+    const saveEdit = (index) => {
+        if (editActivity.time && editActivity.description) {
+            const updatedActivities = [...activities];
+            updatedActivities[index] = editActivity;
+            setActivities(updatedActivities.sort((a, b) => 
+                a.time.localeCompare(b.time)
+            ));
+            setEditingIndex(null);
+            setEditActivity({ time: '', description: '' });
+        }
+    };
+
+    const deleteActivity = (index) => {
+        const updatedActivities = activities.filter((_, i) => i !== index);
+        setActivities(updatedActivities);
+    };
+
     return (
-        <div
-        className="itinerary-page"
-        style={{ backgroundImage: `url(${backgroundImage})` 
-        }}
+        <div 
+            className="itinerary-page"
+            style={{ backgroundImage: `url(${backgroundImage})` }}
         >
             <h1>Plan Your Day</h1>
             <div className="itinerary-container">
@@ -86,12 +109,63 @@ const ItineraryPage = ({ cityDates }) => {
                     <h3>Activities</h3>
                     {activities.map((activity, index) => (
                         <div key={index} className="activity-item">
-                            <span className="activity-time">
-                                {activity.time}
-                            </span>
-                            <span className="activity-description">
-                                {activity.description}
-                            </span>
+                            {editingIndex === index ? (
+                                <>
+                                    <input
+                                        type="time"
+                                        value={editActivity.time}
+                                        onChange={(e) => setEditActivity({
+                                            ...editActivity,
+                                            time: e.target.value
+                                        })}
+                                        className="time-input"
+                                    />
+                                    <input
+                                        type="text"
+                                        value={editActivity.description}
+                                        onChange={(e) => setEditActivity({
+                                            ...editActivity,
+                                            description: e.target.value
+                                        })}
+                                        className="description-input"
+                                    />
+                                    <button 
+                                        onClick={() => saveEdit(index)}
+                                        className="save-button"
+                                    >
+                                        Save
+                                    </button>
+                                    <button 
+                                        onClick={cancelEditing}
+                                        className="cancel-button"
+                                    >
+                                        Cancel
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    <span className="activity-time">
+                                        {activity.time}
+                                    </span>
+                                    <span className="activity-description">
+                                        {activity.description}
+                                    </span>
+                                    <div className="activity-actions">
+                                        <button 
+                                            onClick={() => startEditing(index)}
+                                            className="edit-button"
+                                        >
+                                            Edit
+                                        </button>
+                                        <button 
+                                            onClick={() => deleteActivity(index)}
+                                            className="delete-button"
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     ))}
                 </div>

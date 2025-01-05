@@ -201,3 +201,46 @@
     background-color: var(--primary-pink);
     transform: translateY(-1px);
 }
+
+.activity-actions {
+    display: flex;
+    gap: 1rem;  
+    margin-left: auto;
+}
+
+.edit-button,
+.delete-button,
+.save-button,
+.cancel-button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.edit-button {
+    background-color: var(--primary-pink);
+}
+
+.delete-button {
+    background-color: var(--primary-pink);
+}
+
+.save-button {
+    background-color: var(--primary-pink);
+}
+
+.cancel-button {
+    background-color: var(--primary-pink);
+}
+
+.edit-button:hover,
+.save-button:hover,
+.delete-button:hover,
+.cancel-button:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+}
