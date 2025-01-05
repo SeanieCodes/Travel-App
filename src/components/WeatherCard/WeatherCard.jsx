@@ -11,6 +11,10 @@ const WeatherCard = ({ city }) => {
             try {
                 setLoading(true);
                 const weatherData = await getWeather(city);
+                if (weatherData.description) {
+                    weatherData.description = weatherData.description.charAt(0).toUpperCase() + 
+                                         weatherData.description.slice(1).toLowerCase();
+                }
                 setWeather(weatherData);
             } catch (error) {
                 console.error('Failed to load weather:', error);
