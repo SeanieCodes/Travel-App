@@ -100,7 +100,8 @@
   width: 90% !important;
   text-align: center !important;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  font-weight: 300 !important;
+  font-weight: 500 !important;
+  color: var(--darker-pink) !important;
 }
 
 .search-bar {
