@@ -36,14 +36,16 @@ const MyCalendar = ({ cityDates }) => {
 
     return (
         <div 
-        className="calendar-page"
-        style={{ backgroundImage: `url(${backgroundImage})` 
-        }}>
+            className="calendar-page"
+            style={{ backgroundImage: `url(${backgroundImage})` }}
+        >
             <div className="title-container">
-            <h1>meridian</h1>
+                <h1>meridian</h1>
             </div>
-            <div className="calendar-container">
+            <div className="search-container-wrapper">
                 <CitySearch />
+            </div>
+            <div className="calendar-wrapper">
                 <Calendar 
                     onChange={handleDateClick} 
                     tileContent={getTileContent}

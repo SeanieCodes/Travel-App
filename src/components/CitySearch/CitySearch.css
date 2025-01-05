@@ -1,56 +1,65 @@
+.search-container {
+  position: relative;
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto 2rem auto;
+}
+
 .search-bar {
-    width: 800px;
-    max-width: 100%;
-    margin-bottom: 2rem;
-    position: relative;
-  }
-  
-  .search-bar input {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.2rem;
-    font-weight: 300;
-    border: none;
-    border-radius: 12px;
-    background-color: var(--white);
-    box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
-    transition: all 0.2s ease;
-    border: 2px solid var(--primary-pink);
+  width: 100%;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 300;
+  border-radius: 12px;
+  background-color: var(--white);
+  box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
+  transition: all 0.2s ease;
+  border: 2px solid var(--primary-pink);
+  position: relative;
+  z-index: 1000;
 }
 
 .search-bar input:focus {
-    outline: none;
-    border: 2px solid var(--primary-pink);
-    box-shadow: 0 4px 20px var(--shadow), 0 0 40px rgba(255, 105, 180, 0.2);
+  outline: none;
+  border-color: var(--primary-pink);
+  box-shadow: 0 4px 20px var(--shadow), 0 0 40px rgba(255, 105, 180, 0.2);
 }
-  
-  .search-bar input::placeholder {
-    color: #999;
-    font-weight: 300;
-  }
-  
-  .dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: var(--white);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
-    margin-top: 0.5rem;
-    padding: 0;
-    list-style: none;
-    z-index: 1000;
-  }
-  
-  .dropdown li {
-    padding: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 1.2rem;
-    font-weight: 300;
-  }
-  
-  .dropdown li:hover {
-    background-color: var(--light-pink);
-  }
+
+.search-bar input::placeholder {
+  color: #999;
+  font-weight: 300;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
+  margin-top: 0.5rem;
+  padding: 0;
+  list-style: none;
+  z-index: 1001;
+  border: 2px solid var(--primary-pink);
+}
+
+.dropdown li {
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--dark-blue);
+}
+
+.dropdown li:hover {
+  background-color: var(--light-pink);
+  border-radius: 12px;
+}

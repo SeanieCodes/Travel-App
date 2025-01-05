@@ -42,27 +42,29 @@ const CitySearch = () => {
     };
 
     return (
-        <div className="search-bar">
-            <input
-                type="text"
-                placeholder="Enter city name..."
-                value={searchQuery}
-                onChange={handleSearchChange}
-                className={isLoading ? "loading" : ""}
-            />
-            {results.length > 0 && (
-                <ul className="dropdown">
-                    {results.map((city) => (
-                        <li 
-                            key={city.id} 
-                            onClick={() => handleCityClick(city)}
-                        >
-                            {`${city.name}, ${city.country}`}
-                            {city.state && ` (${city.state})`}
-                        </li>
-                    ))}
-                </ul>
-            )}
+        <div className="search-container">
+            <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Enter city name..."
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    className={isLoading ? "loading" : ""}
+                />
+                {results.length > 0 && (
+                    <ul className="dropdown">
+                        {results.map((city) => (
+                            <li 
+                                key={city.id} 
+                                onClick={() => handleCityClick(city)}
+                            >
+                                {`${city.name}, ${city.country}`}
+                                {city.state && ` (${city.state})`}
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
         </div>
     );
 };

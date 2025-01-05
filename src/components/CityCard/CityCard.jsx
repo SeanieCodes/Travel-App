@@ -10,30 +10,27 @@ const CityCard = ({ onDateSelect }) => {
     const location = useLocation();
     const city = location.state?.city || { name: "Unknown City" };
 
-    const formatDateString = (date) => {
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = date.getDate().toString().padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-
     const handleDateRangeSelect = (dateRange) => {
+        const formattedCityName = `${city.name}, ${city.country}`;
+        
         dateRange.forEach(date => {
-            const dateStr = formatDateString(date);
-            onDateSelect(dateStr, city);
+            const dateStr = date.toISOString().split('T')[0];
+            onDateSelect(dateStr, {
+                ...city,
+                name: formattedCityName
+            });
         });
         navigate('/');
     };
 
     return (
         <div
-        className="city-card-page"
-        style={{ backgroundImage: `url(${backgroundImage})` 
-        }}
+            className="city-card-page"
+            style={{ backgroundImage: `url(${backgroundImage})` }}
         >
             <CitySearch />
             <div className="city-card">
-                <h1>{city.name}</h1>
+                <h1>{`${city.name}, ${city.country}`}</h1>
                 <WeatherCard city={city} />
                 <DateRangePicker onDateRangeSelect={handleDateRangeSelect} />
                 <button onClick={() => navigate("/")} className="back-btn">

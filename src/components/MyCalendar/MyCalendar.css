@@ -32,8 +32,25 @@
   letter-spacing: -0.5px;
 }
 
+.search-container-wrapper {
+  position: relative;
+  z-index: 1000;
+  width: 800px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.calendar-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 800px; 
+  max-width: 90%; 
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
 .react-calendar {
-  width: 100% !important;
   margin-top: 1.5rem;
   background: var(--white) !important;
   border: none !important;
@@ -43,6 +60,7 @@
   color: var(--dark-blue) !important;
   border: 2px solid var(--primary-pink) !important;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  width: 100% !important; 
 }
 
 .react-calendar__month-view__days {
