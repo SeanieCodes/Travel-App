@@ -3,11 +3,17 @@ import { useParams, useNavigate } from 'react-router-dom';
 import backgroundImage from '../../assets/pinkflower.avif';
 import './ItineraryPage.css';
 
-const ItineraryPage = ({ cityDates }) => {
+const ItineraryPage = ({ 
+    cityDates, 
+    activities, 
+    onAddActivity, 
+    onUpdateActivity, 
+    onDeleteActivity 
+}) => {
     const { date } = useParams();
     const navigate = useNavigate();
     const cityForThisDate = cityDates?.[date];
-    const [activities, setActivities] = useState([]);
+    
     const [newActivity, setNewActivity] = useState({
         time: '',
         description: ''
@@ -18,6 +24,8 @@ const ItineraryPage = ({ cityDates }) => {
         description: ''
     });
 
+    const dateActivities = activities[date] || [];
+
     const formattedDate = new Date(date).toLocaleDateString('en-US', {
         weekday: 'long',
         year: 'numeric',
@@ -27,16 +35,14 @@ const ItineraryPage = ({ cityDates }) => {
 
     const handleAddActivity = () => {
         if (newActivity.time && newActivity.description) {
-            const updatedActivities = [...activities, newActivity]
-                .sort((a, b) => a.time.localeCompare(b.time));
-            setActivities(updatedActivities);
+            onAddActivity(date, newActivity);
             setNewActivity({ time: '', description: '' });
         }
     };
 
     const startEditing = (index) => {
         setEditingIndex(index);
-        setEditActivity(activities[index]);
+        setEditActivity(dateActivities[index]);
     };
 
     const cancelEditing = () => {
@@ -46,19 +52,14 @@ const ItineraryPage = ({ cityDates }) => {
 
     const saveEdit = (index) => {
         if (editActivity.time && editActivity.description) {
-            const updatedActivities = [...activities];
-            updatedActivities[index] = editActivity;
-            setActivities(updatedActivities.sort((a, b) => 
-                a.time.localeCompare(b.time)
-            ));
+            onUpdateActivity(date, index, editActivity);
             setEditingIndex(null);
             setEditActivity({ time: '', description: '' });
         }
     };
 
-    const deleteActivity = (index) => {
-        const updatedActivities = activities.filter((_, i) => i !== index);
-        setActivities(updatedActivities);
+    const handleDelete = (index) => {
+        onDeleteActivity(date, index);
     };
 
     return (
@@ -107,7 +108,7 @@ const ItineraryPage = ({ cityDates }) => {
 
                 <div className="activities-list">
                     <h3>Activities</h3>
-                    {activities.map((activity, index) => (
+                    {dateActivities.map((activity, index) => (
                         <div key={index} className="activity-item">
                             {editingIndex === index ? (
                                 <>
@@ -158,7 +159,7 @@ const ItineraryPage = ({ cityDates }) => {
                                             Edit
                                         </button>
                                         <button 
-                                            onClick={() => deleteActivity(index)}
+                                            onClick={() => handleDelete(index)}
                                             className="delete-button"
                                         >
                                             Delete
