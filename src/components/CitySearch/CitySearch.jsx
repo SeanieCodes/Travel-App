@@ -6,7 +6,6 @@ import "./CitySearch.css";
 const CitySearch = ({ onCitySelect }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [results, setResults] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -17,15 +16,12 @@ const CitySearch = ({ onCitySelect }) => {
         }
 
         const timeoutId = setTimeout(async () => {
-            setIsLoading(true);
             try {
                 const cityResults = await searchCities(searchQuery);
                 setResults(cityResults);
             } catch (error) {
                 console.error("Failed to search cities:", error);
                 setResults([]);
-            } finally {
-                setIsLoading(false);
             }
         }, 300);
 
@@ -62,7 +58,6 @@ const CitySearch = ({ onCitySelect }) => {
                     placeholder="Enter city name..."
                     value={searchQuery}
                     onChange={handleSearchChange}
-                    className={isLoading ? "loading" : ""}
                 />
                 {results.length > 0 && (
                     <ul className="dropdown">

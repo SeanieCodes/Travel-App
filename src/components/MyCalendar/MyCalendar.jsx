@@ -23,7 +23,6 @@ const MyCalendar = ({ cityDates }) => {
     };
 
     const getTileContent = ({ date, view }) => {
-        if (view !== 'month') return null;
         const dateStr = formatDateString(date);
         const cityName = cityDates[dateStr]?.name;
 
