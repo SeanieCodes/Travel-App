@@ -2,19 +2,21 @@ import { useState, useEffect } from 'react';
 import { getWeather } from '../../APIs/openWeatherAPI';
 import './WeatherCard.css';
 
-const WeatherCard = ({ city }) => {
-    const [weather, setWeather] = useState(null);
-    const [loading, setLoading] = useState(true);
+const WeatherCard = ({ city, initialWeatherData }) => {
+    const [weather, setWeather] = useState(initialWeatherData || null);
+    const [loading, setLoading] = useState(!initialWeatherData);
 
     useEffect(() => {
+        if (initialWeatherData) {
+            setWeather(initialWeatherData);
+            setLoading(false);
+            return;
+        }
+
         async function loadWeather() {
             try {
                 setLoading(true);
                 const weatherData = await getWeather(city);
-                if (weatherData.description) {
-                    weatherData.description = weatherData.description.charAt(0).toUpperCase() + 
-                                         weatherData.description.slice(1).toLowerCase();
-                }
                 setWeather(weatherData);
             } catch (error) {
                 console.error('Failed to load weather:', error);
@@ -23,10 +25,10 @@ const WeatherCard = ({ city }) => {
             }
         }
 
-        if (city?.name) {
+        if (city?.name && !initialWeatherData) {
             loadWeather();
         }
-    }, [city]);
+    }, [city, initialWeatherData]);
 
     if (loading) {
         return <div className="weather-card">Loading weather data...</div>;

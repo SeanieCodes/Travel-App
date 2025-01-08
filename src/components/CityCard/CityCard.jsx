@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CitySearch from '../CitySearch/CitySearch';
 import WeatherCard from '../WeatherCard/WeatherCard';
@@ -8,15 +9,30 @@ import './CityCard.css';
 const CityCard = ({ onDateSelect }) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const city = location.state?.city || { name: "Unknown City" };
+    const [currentCity, setCurrentCity] = useState(null);
+    const [currentWeather, setCurrentWeather] = useState(null);
+
+    useEffect(() => {
+        if (location.state?.city) {
+            setCurrentCity(location.state.city);
+            setCurrentWeather(location.state.weatherData);
+        }
+    }, [location.state]);
+
+    const handleCitySelect = (city, weatherData) => {
+        setCurrentCity(city);
+        setCurrentWeather(weatherData);
+    };
 
     const handleDateRangeSelect = (dateRange) => {
-        const formattedCityName = `${city.name}, ${city.country}`;
+        if (!currentCity) return;
+
+        const formattedCityName = `${currentCity.name}, ${currentCity.country}`;
         
         dateRange.forEach(date => {
             const dateStr = date.toISOString().split('T')[0];
             onDateSelect(dateStr, {
-                ...city,
+                ...currentCity,
                 name: formattedCityName
             });
         });
@@ -28,15 +44,20 @@ const CityCard = ({ onDateSelect }) => {
             className="city-card-page"
             style={{ backgroundImage: `url(${backgroundImage})` }}
         >
-            <CitySearch />
-            <div className="city-card">
-                <h1>{`${city.name}, ${city.country}`}</h1>
-                <WeatherCard city={city} />
-                <DateRangePicker onDateRangeSelect={handleDateRangeSelect} />
-                <button onClick={() => navigate("/")} className="back-btn">
-                    Back to Calendar
-                </button>
-            </div>
+            <CitySearch onCitySelect={handleCitySelect} />
+            {currentCity && (
+                <div className="city-card">
+                    <h1>{`${currentCity.name}, ${currentCity.country}`}</h1>
+                    <WeatherCard 
+                        city={currentCity} 
+                        initialWeatherData={currentWeather}
+                    />
+                    <DateRangePicker onDateRangeSelect={handleDateRangeSelect} />
+                    <button onClick={() => navigate("/")} className="back-btn">
+                        Back to Calendar
+                    </button>
+                </div>
+            )}
         </div>
     );
 };

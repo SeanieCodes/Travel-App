@@ -1,3 +1,5 @@
+import { saveCityToAirtable, saveWeatherToAirtable } from './airtableAPI';
+
 const BASE_URL = 'http://api.openweathermap.org';
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
@@ -17,14 +19,23 @@ async function searchCities(searchQuery) {
 
         const data = await response.json();
         
-        return data.map(city => ({
-            id: `${city.name}-${city.country}${city.state ? `-${city.state}` : ''}`,
-            name: city.name,
-            country: city.country,
-            state: city.state,
-            lat: city.lat,
-            lon: city.lon
-        }));
+        const uniqueCities = new Map();
+        
+        data.forEach(city => {
+            const key = `${city.name}-${city.country}`;
+            if (!uniqueCities.has(key)) {
+                uniqueCities.set(key, {
+                    id: `${city.name}-${city.country}${city.state ? `-${city.state}` : ''}`,
+                    name: city.name,
+                    country: city.country,
+                    state: city.state,
+                    lat: city.lat,
+                    lon: city.lon
+                });
+            }
+        });
+
+        return Array.from(uniqueCities.values());
     } catch (error) {
         console.error('Error searching cities:', error);
         return [];
@@ -34,7 +45,6 @@ async function searchCities(searchQuery) {
 async function getWeather(city) {
     try {
         let weatherUrl;
-
         if (city.lat && city.lon) {
             weatherUrl = `${BASE_URL}/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&appid=${API_KEY}&units=metric`;
         } else {
@@ -58,4 +68,20 @@ async function getWeather(city) {
     }
 }
 
-export { searchCities, getWeather };
+async function handleCitySelection(city) {
+    try {
+        await saveCityToAirtable(city);
+        
+        const weatherData = await getWeather(city);
+        if (!weatherData) return null;
+
+        await saveWeatherToAirtable(city.id, weatherData);
+
+        return weatherData;
+    } catch (error) {
+        console.error('Failed to handle city selection:', error);
+        return null;
+    }
+}
+
+export { searchCities, getWeather, handleCitySelection };

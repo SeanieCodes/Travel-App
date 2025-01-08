@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { searchCities } from "../../APIs/openWeatherAPI";
+import { useNavigate, useLocation } from "react-router-dom";
+import { searchCities, handleCitySelection } from "../../APIs/openWeatherAPI";
 import "./CitySearch.css";
 
-const CitySearch = () => {
+const CitySearch = ({ onCitySelect }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         if (!searchQuery) {
@@ -35,10 +36,22 @@ const CitySearch = () => {
         setSearchQuery(e.target.value);
     };
 
-    const handleCityClick = (city) => {
+    const handleCityClick = async (city) => {
         setSearchQuery("");
         setResults([]);
-        navigate("/city-card", { state: { city: city } });
+        
+        const weatherData = await handleCitySelection(city);
+        
+        if (location.pathname === "/city-card") {
+            onCitySelect?.(city, weatherData);
+        } else {
+            navigate("/city-card", { 
+                state: { 
+                    city,
+                    weatherData  
+                } 
+            });
+        }
     };
 
     return (
@@ -55,7 +68,7 @@ const CitySearch = () => {
                     <ul className="dropdown">
                         {results.map((city) => (
                             <li 
-                                key={city.id} 
+                                key={`${city.id}-${city.lat}-${city.lon}`}
                                 onClick={() => handleCityClick(city)}
                             >
                                 {`${city.name}, ${city.country}`}
