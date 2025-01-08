@@ -22,7 +22,7 @@ const MyCalendar = ({ cityDates }) => {
         navigate(`/itinerary/${formattedDate}`);
     };
 
-    const getTileContent = ({ date, view }) => {
+    const getTileContent = ({ date }) => {
         const dateStr = formatDateString(date);
         const cityName = cityDates[dateStr]?.name;
 
