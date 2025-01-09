@@ -21,7 +21,7 @@ https://travel-app-six-orcin.vercel.app/
 
 ### Planning Materials
 
-- Mental planning
+- draw.io
 
 ## Technologies Used
 
