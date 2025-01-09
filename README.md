@@ -1,6 +1,6 @@
 # Alcove: Your Smart Travel Companion 🌍✈️
 
-
+![Game Screenshot](./alcove.png)
 
 ## Description
 
@@ -17,9 +17,11 @@ Key features include:
 
 ### Live Demo
 
+https://travel-app-six-orcin.vercel.app/
 
 ### Planning Materials
 
+- Mental planning
 
 ## Technologies Used
 
