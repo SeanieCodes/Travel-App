@@ -1,6 +1,6 @@
 import { saveCityToAirtable, saveWeatherToAirtable } from './airtableAPI';
 
-const BASE_URL = 'http://api.openweathermap.org';
+const BASE_URL = 'https://api.openweathermap.org';
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 async function searchCities(searchQuery) {
