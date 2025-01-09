@@ -1,104 +1,103 @@
 .city-card-page {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    background-repeat: repeat;
-    background-size: 300px auto;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: var(--light-pink)
 }
 
 .city-card {
-    width: 800px;
-    max-width: 100%;
-    background-color: var(--white);
-    border-radius: 12px;
-    border: 2px solid var(--primary-pink);
-    box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
-    padding: 2rem;
-    margin-top: 2rem;
-    display: flex;              
-    flex-direction: column;    
-    align-items: center;
-    margin-bottom: 2rem;
+  width: 800px;
+  max-width: 100%;
+  background-color: var(--white);
+  border-radius: 12px;
+  border: 2px solid var(--primary-pink);
+  box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
+  padding: 2rem;
+  margin-top: 2rem;
+  display: flex;              
+  flex-direction: column;    
+  align-items: center;
+  margin-bottom: 2rem;
 }
-  
-  .city-card h1 {
-    font-size: 2.5rem;
-    font-weight: 300;
-    margin: 0 0 1.5rem 0;
-    letter-spacing: -0.5px;
-    color: var(--dark-blue);
-    text-shadow: 0 0 20px var(--glow);
-    padding: 1rem 2rem;
-    border: 2px solid var(--primary-pink);
-    border-radius: 12px;
-    box-shadow: 0 0 20px var(--glow);
-}
-  
-  .city-card p {
-    font-size: 1.2rem;
-    line-height: 1.5;
-    margin: 0.8rem 0;
-    color: var(--dark-blue);
-    font-weight: 300;
-  }
-  
-  .city-card p strong {
-    font-weight: 500;
-  }
-  
-  .city-card button {
-    margin-top: 1.5rem;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: var(--white);
-    background-color: var(--primary-pink);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .city-card button:hover {
-    background-color: var(--primary-pink);
-    transform: translateY(-1px);
-  }
 
-  .date-picker-container {
-    margin: 2rem 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+.city-card h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -0.5px;
+  color: var(--dark-blue);
+  text-shadow: 0 0 20px var(--glow);
+  padding: 1rem 2rem;
+  border: 2px solid var(--primary-pink);
+  border-radius: 12px;
+  box-shadow: 0 0 20px var(--glow);
+}
+
+.city-card p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin: 0.8rem 0;
+  color: var(--dark-blue);
+  font-weight: 300;
+}
+
+.city-card p strong {
+  font-weight: 500;
+}
+
+.city-card button {
+  margin-top: 1.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--white);
+  background-color: var(--primary-pink);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.city-card button:hover {
+  background-color: var(--primary-pink);
+  transform: translateY(-1px);
+}
+
+.date-picker-container {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .date-picker-container label {
-    font-size: 1.2rem;
-    color: var(--dark-blue);
-    font-weight: 300;
+  font-size: 1.2rem;
+  color: var(--dark-blue);
+  font-weight: 300;
 }
 
 .date-picker {
-    padding: 1rem;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 8px;
-    background-color: var(--gray);
-    color: var(--dark-blue);
-    cursor: pointer;
-    transition: all 0.2s ease;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--gray);
+  color: var(--dark-blue);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .date-picker:hover {
-    background-color: var(--primary-pink);
-    color: var(--white);
+  background-color: var(--primary-pink);
+  color: var(--white);
 }

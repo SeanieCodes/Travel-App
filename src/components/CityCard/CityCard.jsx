@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import CitySearch from '../CitySearch/CitySearch';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import DateRangePicker from '../DateRangePicker/DateRangePicker';
-import backgroundImage from '../../assets/pinkflower.avif';
 import './CityCard.css';
 
 const CityCard = ({ onDateSelect }) => {
@@ -40,10 +39,7 @@ const CityCard = ({ onDateSelect }) => {
     };
 
     return (
-        <div
-            className="city-card-page"
-            style={{ backgroundImage: `url(${backgroundImage})` }}
-        >
+        <div className="city-card-page">
             <CitySearch onCitySelect={handleCitySelect} />
             {currentCity && (
                 <div className="city-card">

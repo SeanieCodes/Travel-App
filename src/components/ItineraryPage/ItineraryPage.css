@@ -11,8 +11,7 @@
     flex-direction: column;
     align-items: center;
     padding: 2rem;
-    background-repeat: repeat;
-    background-size: 300px auto;
+    background-color: var(--light-pink)
 }
 
 .itinerary-page h1 {
@@ -27,7 +26,6 @@
     background-color: var(--white);
     border: 2px solid var(--primary-pink);
     box-shadow: 0 0 20px var(--glow);
-    
 }
 
 .itinerary-container {
@@ -218,21 +216,6 @@
     color: var(--white);
     cursor: pointer;
     transition: all 0.2s ease;
-}
-
-.edit-button {
-    background-color: var(--primary-pink);
-}
-
-.delete-button {
-    background-color: var(--primary-pink);
-}
-
-.save-button {
-    background-color: var(--primary-pink);
-}
-
-.cancel-button {
     background-color: var(--primary-pink);
 }
 
