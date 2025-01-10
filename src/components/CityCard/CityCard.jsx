@@ -4,24 +4,22 @@ import { formatRawDateString } from '../../utils/dateTimeUtils';
 import CitySearch from '../CitySearch/CitySearch';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import DateRangePicker from '../DateRangePicker/DateRangePicker';
+import backgroundImage from '../../assets/Pinkflower.avif';
 import './CityCard.css';
 
 const CityCard = ({ onDateSelect }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const [currentCity, setCurrentCity] = useState(null);
-    const [currentWeather, setCurrentWeather] = useState(null);
 
     useEffect(() => {
         if (location.state?.city) {
             setCurrentCity(location.state.city);
-            setCurrentWeather(location.state.weatherData);
         }
     }, [location.state]);
 
-    const handleCitySelect = (city, weatherData) => {
+    const handleCitySelect = (city) => {
         setCurrentCity(city);
-        setCurrentWeather(weatherData);
     };
 
     const handleDateRangeSelect = (dateRange) => {
@@ -40,15 +38,15 @@ const CityCard = ({ onDateSelect }) => {
     };
 
     return (
-        <div className="city-card-page">
+        <div 
+            className="city-card-page"
+            style={{ backgroundImage: `url(${backgroundImage})` }}
+        >
             <CitySearch onCitySelect={handleCitySelect} />
             {currentCity && (
                 <div className="city-card">
                     <h1>{`${currentCity.name}, ${currentCity.country}`}</h1>
-                    <WeatherCard 
-                        city={currentCity} 
-                        initialWeatherData={currentWeather}
-                    />
+                    <WeatherCard city={currentCity} />
                     <DateRangePicker onDateRangeSelect={handleDateRangeSelect} />
                     <button onClick={() => navigate("/")} className="back-btn">
                         Back to Calendar

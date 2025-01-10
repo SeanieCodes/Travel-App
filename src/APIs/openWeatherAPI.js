@@ -75,11 +75,7 @@ async function getWeather(city) {
 async function handleCitySelection(city) {
     try {
         await saveCityToAirtable(city);
-        
-        const weatherData = await getWeather(city);
-        if (!weatherData) return null;
-
-        return weatherData;
+        return city;
     } catch (error) {
         console.error('Failed to handle city selection:', error);
         return null;

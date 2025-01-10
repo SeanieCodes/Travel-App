@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import CitySearch from '../CitySearch/CitySearch';
 import { formatCalendarDate } from '../../utils/dateTimeUtils';
+import backgroundImage from '../../assets/Pinkflower.avif';
 import "react-calendar/dist/Calendar.css";
 import "./MyCalendar.css";
 
@@ -25,7 +26,10 @@ const MyCalendar = ({ cityDates }) => {
     };
 
     return (
-        <div className="calendar-page">
+        <div 
+            className="calendar-page"
+            style={{ backgroundImage: `url(${backgroundImage})` }}
+        >
             <div className="title-container">
                 <h1>alcove</h1>
             </div>

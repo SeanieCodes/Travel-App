@@ -2,14 +2,11 @@ import { useState, useEffect } from 'react';
 import { getWeather } from '../../APIs/openWeatherAPI';
 import './WeatherCard.css';
 
-const WeatherCard = ({ city, initialWeatherData }) => {
-    const [weather, setWeather] = useState(initialWeatherData || null);
+const WeatherCard = ({ city }) => {
+    const [weather, setWeather] = useState(null);
 
     useEffect(() => {
-        if (initialWeatherData) {
-            setWeather(initialWeatherData);
-            return;
-        }
+        if (!city?.name) return;
 
         async function loadWeather() {
             try {
@@ -20,10 +17,8 @@ const WeatherCard = ({ city, initialWeatherData }) => {
             }
         }
 
-        if (city?.name && !initialWeatherData) {
-            loadWeather();
-        }
-    }, [city, initialWeatherData]);
+        loadWeather();
+    }, [city]);
 
     if (!weather) {
         return <div className="weather-card">Could not load weather data</div>;
