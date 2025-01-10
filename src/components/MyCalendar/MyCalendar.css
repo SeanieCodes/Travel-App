@@ -148,7 +148,7 @@
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  font-weight: 600 !important;
+  font-weight: 500 !important;
   color: var(--darker-pink);
   border: 2px solid var(--light-pink);
   font-size: large;
