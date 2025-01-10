@@ -1,4 +1,4 @@
-import { saveCityToAirtable, saveWeatherToAirtable } from './airtableAPI';
+import { saveCityToAirtable } from './airtableAPI';
 
 const BASE_URL = 'https://api.openweathermap.org';
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
@@ -78,8 +78,6 @@ async function handleCitySelection(city) {
         
         const weatherData = await getWeather(city);
         if (!weatherData) return null;
-
-        await saveWeatherToAirtable(city.id, weatherData);
 
         return weatherData;
     } catch (error) {
