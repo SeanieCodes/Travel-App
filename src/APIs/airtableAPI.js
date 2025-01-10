@@ -29,7 +29,6 @@ export async function saveCityToAirtable(city) {
         );
 
         if (response.records && response.records.length > 0) {
-            console.log('City already exists:', city.name);
             return response.records[0];
         }
 
@@ -71,7 +70,6 @@ export async function getCityFromAirtable(cityId) {
 
 export async function saveWeatherToAirtable(cityId, weatherData) {
     try {
-        console.log('Saving weather data for city:', cityId);
         
         const processedData = {
             cityId: cityId,
@@ -92,7 +90,6 @@ export async function saveWeatherToAirtable(cityId, weatherData) {
             })
         });
 
-        console.log('Weather data saved successfully');
         return response.records[0];
     } catch (error) {
         console.error('Error saving weather to Airtable:', error);
