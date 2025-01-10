@@ -133,3 +133,37 @@
   font-size: 1.2rem !important;
   color: var(--dark-blue) !important;
 }
+
+.react-calendar__year-view button {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  color: var(--darker-pink);
+  border: 2px solid var(--light-pink);
+  box-shadow: 0 0 20px var(--glow);
+}
+
+.react-calendar__century-view button,
+.react-calendar__decade-view button {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-weight: 600 !important;
+  color: var(--darker-pink);
+  border: 2px solid var(--light-pink);
+  font-size: large;
+  box-shadow: 0 0 20px var(--glow);
+}
+
+.react-calendar__year-view__months__month {
+  text-align: center !important;
+  justify-content: center !important;
+  align-items: center !important;    
+  padding: 1em 0 !important;
+  color: var(--darker-pink) !important;
+}
+
+.react-calendar__year-view__months__month abbr {
+  width: 100% !important;
+  font-weight: 500 !important;
+}
