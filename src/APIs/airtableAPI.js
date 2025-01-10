@@ -32,7 +32,6 @@ export async function saveCityToAirtable(city) {
             return response.records[0];
         }
 
-        console.log('Creating new city:', city.name);
         const createResponse = await airtableFetch('/Cities', {
             method: 'POST',
             body: JSON.stringify({
