@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { formatRawDateString } from '../../utils/dateTimeUtils';
 import CitySearch from '../CitySearch/CitySearch';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import DateRangePicker from '../DateRangePicker/DateRangePicker';
@@ -29,7 +30,7 @@ const CityCard = ({ onDateSelect }) => {
         const formattedCityName = `${currentCity.name}, ${currentCity.country}`;
         
         dateRange.forEach(date => {
-            const dateStr = date.toISOString().split('T')[0];
+            const dateStr = formatRawDateString(date);
             onDateSelect(dateStr, {
                 ...currentCity,
                 name: formattedCityName

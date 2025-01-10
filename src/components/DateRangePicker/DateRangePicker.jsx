@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { getDatesInRange } from '../../utils/dateTimeUtils';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import './DateRangePicker.css';
@@ -6,30 +7,6 @@ import './DateRangePicker.css';
 const DateRangePicker = ({ onDateRangeSelect }) => {
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
-
-    const getDatesInRange = (start, end) => {
-        const dates = [];
-        let currentDate = new Date(Date.UTC(
-            start.getFullYear(),
-            start.getMonth(),
-            start.getDate()
-        ));
-        const lastDate = new Date(Date.UTC(
-            end.getFullYear(),
-            end.getMonth(),
-            end.getDate()
-        ));
-
-        while (currentDate <= lastDate) {
-            dates.push(new Date(currentDate));
-            currentDate = new Date(Date.UTC(
-                currentDate.getUTCFullYear(),
-                currentDate.getUTCMonth(),
-                currentDate.getUTCDate() + 1
-            ));
-        }
-        return dates;
-    };
 
     const handleDateChange = (update) => {
         setDateRange(update);

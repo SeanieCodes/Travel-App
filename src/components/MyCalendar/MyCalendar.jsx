@@ -1,28 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import CitySearch from '../CitySearch/CitySearch';
+import { formatCalendarDate } from '../../utils/dateTimeUtils';
 import "react-calendar/dist/Calendar.css";
 import "./MyCalendar.css";
 
 const MyCalendar = ({ cityDates }) => {
     const navigate = useNavigate();
     
-    const formatDateString = (date) => {
-        const year = date.getFullYear();
-        const month = date.getMonth();
-        const day = date.getDate();
-        const monthStr = (month + 1).toString().padStart(2, '0');
-        const dayStr = day.toString().padStart(2, '0');
-        return `${year}-${monthStr}-${dayStr}`;
-    };
-
     const handleDateClick = (date) => {
-        const formattedDate = formatDateString(date);
+        const formattedDate = formatCalendarDate(date);
         navigate(`/itinerary/${formattedDate}`);
     };
 
     const getTileContent = ({ date }) => {
-        const dateStr = formatDateString(date);
+        const dateStr = formatCalendarDate(date);
         const cityName = cityDates[dateStr]?.name;
 
         return cityName ? (

@@ -4,38 +4,27 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MyCalendar from './components/MyCalendar/MyCalendar';
 import CityCard from './components/CityCard/CityCard';
 import ItineraryPage from './components/ItineraryPage/ItineraryPage';
+import { formatRawDateString, sortActivitiesByTime } from './utils/dateTimeUtils';
 
 const App = () => {
     const [cityDates, setCityDates] = useState({});
     const [dateActivities, setDateActivities] = useState({});
 
-    const formatDateString = (date) => {
-        const d = new Date(date);
-        const year = d.getFullYear();
-        const month = (d.getMonth() + 1).toString().padStart(2, '0');
-        const day = d.getDate().toString().padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-
     const assignCityToDate = (date, city) => {
-        const normalizedDate = formatDateString(date);
-        setCityDates((prevDates) => {
-            const cityData = {
+        const normalizedDate = formatRawDateString(date);
+        setCityDates((prevDates) => ({
+            ...prevDates,
+            [normalizedDate]: {
                 id: city.id,
                 name: city.name
-            };
-            return {
-                ...prevDates,
-                [normalizedDate]: cityData
-            };
-        });
+            }
+        }));
     };
 
     const addActivity = (date, activity) => {
         setDateActivities(prev => {
             const existingActivities = prev[date] || [];
-            const updatedActivities = [...existingActivities, activity]
-                .sort((a, b) => a.time.localeCompare(b.time));
+            const updatedActivities = sortActivitiesByTime([...existingActivities, activity]);
             return {
                 ...prev,
                 [date]: updatedActivities
@@ -49,7 +38,7 @@ const App = () => {
             activities[index] = updatedActivity;
             return {
                 ...prev,
-                [date]: activities.sort((a, b) => a.time.localeCompare(b.time))
+                [date]: sortActivitiesByTime(activities)
             };
         });
     };

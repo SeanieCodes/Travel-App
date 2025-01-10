@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { formatDateForDisplay } from '../../utils/dateTimeUtils';
 import './ItineraryPage.css';
 
 const ItineraryPage = ({ 
@@ -24,13 +25,7 @@ const ItineraryPage = ({
     });
 
     const dateActivities = activities[date] || [];
-
-    const formattedDate = new Date(date).toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
+    const formattedDate = formatDateForDisplay(date);
 
     const handleAddActivity = () => {
         if (newActivity.time && newActivity.description) {
