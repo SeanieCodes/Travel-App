@@ -8,7 +8,6 @@ const WeatherCard = ({ city, initialWeatherData }) => {
     useEffect(() => {
         if (initialWeatherData) {
             setWeather(initialWeatherData);
-            setLoading(false);
             return;
         }
 
