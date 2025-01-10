@@ -4,7 +4,6 @@ import './WeatherCard.css';
 
 const WeatherCard = ({ city, initialWeatherData }) => {
     const [weather, setWeather] = useState(initialWeatherData || null);
-    const [loading, setLoading] = useState(!initialWeatherData);
 
     useEffect(() => {
         if (initialWeatherData) {
@@ -15,13 +14,10 @@ const WeatherCard = ({ city, initialWeatherData }) => {
 
         async function loadWeather() {
             try {
-                setLoading(true);
                 const weatherData = await getWeather(city);
                 setWeather(weatherData);
             } catch (error) {
                 console.error('Failed to load weather:', error);
-            } finally {
-                setLoading(false);
             }
         }
 
@@ -29,10 +25,6 @@ const WeatherCard = ({ city, initialWeatherData }) => {
             loadWeather();
         }
     }, [city, initialWeatherData]);
-
-    if (loading) {
-        return <div className="weather-card">Loading weather data...</div>;
-    }
 
     if (!weather) {
         return <div className="weather-card">Could not load weather data</div>;
