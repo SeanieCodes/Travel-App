@@ -31,12 +31,6 @@ const DateRangePicker = ({ onDateRangeSelect }) => {
                 monthsShown={2}
                 className="custom-datepicker"
             />
-            
-            {startDate && endDate && (
-                <div className="date-summary">
-                    Selected: {startDate.toLocaleDateString()} - {endDate.toLocaleDateString()}
-                </div>
-            )}
         </div>
     );
 };
