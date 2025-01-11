@@ -11,7 +11,12 @@
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  background-color: var(--light-pink)
+  background-image: url('');
+  background-repeat: repeat;
+  background-size: 380px;
+  background-position: center -50px;
+  background-attachment: fixed;
+  opacity: 0.8;
 }
 
 .city-card {

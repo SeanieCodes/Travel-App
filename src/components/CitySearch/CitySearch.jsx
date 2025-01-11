@@ -36,15 +36,14 @@ const CitySearch = ({ onCitySelect }) => {
         setSearchQuery("");
         setResults([]);
         
-        const weatherData = await handleCitySelection(city);
+        await handleCitySelection(city);
         
         if (location.pathname === "/city-card") {
-            onCitySelect?.(city, weatherData);
+            onCitySelect(city);
         } else {
             navigate("/city-card", { 
                 state: { 
                     city,
-                    weatherData  
                 } 
             });
         }

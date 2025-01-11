@@ -4,6 +4,7 @@ import { formatRawDateString } from '../../utils/dateTimeUtils';
 import CitySearch from '../CitySearch/CitySearch';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import DateRangePicker from '../DateRangePicker/DateRangePicker';
+import backgroundImage from '../../assets/Pinkflower.png';
 import './CityCard.css';
 
 const CityCard = ({ onDateSelect }) => {
@@ -39,6 +40,7 @@ const CityCard = ({ onDateSelect }) => {
     return (
         <div 
             className="city-card-page"
+            style={{ backgroundImage: `url(${backgroundImage})` }}
         >
             <CitySearch onCitySelect={handleCitySelect} />
             {currentCity && (

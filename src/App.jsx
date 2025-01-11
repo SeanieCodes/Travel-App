@@ -30,7 +30,7 @@ const App = () => {
                 [date]: updatedActivities
             };
         });
-    };
+    }
 
     const updateActivity = (date, index, updatedActivity) => {
         setDateActivities(prev => {

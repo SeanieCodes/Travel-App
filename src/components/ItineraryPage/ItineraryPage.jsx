@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { formatDateForDisplay } from '../../utils/dateTimeUtils';
+import backgroundImage from '../../assets/Pinkflower.png';
 import './ItineraryPage.css';
 
 const ItineraryPage = ({ 
@@ -59,6 +60,7 @@ const ItineraryPage = ({
     return (
         <div 
             className="itinerary-page"
+            style={{ backgroundImage: `url(${backgroundImage})` }}
         >
             <h1>Plan Your Day</h1>
             <div className="itinerary-container">
