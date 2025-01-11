@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { formatDateForDisplay } from '../../utils/dateTimeUtils';
-import backgroundImage from '../../assets/Pinkflower.png';
+import backgroundImage from '../../assets/PinkFlower.png';
 import './ItineraryPage.css';
 
 const ItineraryPage = ({ 

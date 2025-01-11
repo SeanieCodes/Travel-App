@@ -4,7 +4,7 @@ import { formatRawDateString } from '../../utils/dateTimeUtils';
 import CitySearch from '../CitySearch/CitySearch';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import DateRangePicker from '../DateRangePicker/DateRangePicker';
-import backgroundImage from '../../assets/Pinkflower.png';
+import backgroundImage from '../../assets/PinkFlower.png';
 import './CityCard.css';
 
 const CityCard = ({ onDateSelect }) => {
