@@ -1,10 +1,25 @@
 import './App.css';
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { UserProvider } from './contexts/UserContext';
 import MyCalendar from './components/MyCalendar/MyCalendar';
 import CityCard from './components/CityCard/CityCard';
 import ItineraryPage from './components/ItineraryPage/ItineraryPage';
+import LoginForm from './components/LoginForm/LoginForm';
+import SignupForm from './components/SignupForm/SignupForm';
+import { checkAuth } from './services/authService';
 import { formatRawDateString, sortActivitiesByTime } from './utils/dateTimeUtils';
+
+// Protected route component to handle authentication
+const ProtectedRoute = ({ children }) => {
+  const isAuthenticated = checkAuth();
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+  
+  return children;
+};
 
 const App = () => {
     const [cityDates, setCityDates] = useState({});
@@ -54,30 +69,50 @@ const App = () => {
     };
 
     return (
-        <Router>
-            <Routes>
-                <Route 
-                    path="/" 
-                    element={<MyCalendar cityDates={cityDates} />} 
-                />
-                <Route 
-                    path="/city-card" 
-                    element={<CityCard onDateSelect={assignCityToDate} />} 
-                />
-                <Route 
-                    path="/itinerary/:date" 
-                    element={
-                        <ItineraryPage 
-                            cityDates={cityDates}
-                            activities={dateActivities}
-                            onAddActivity={addActivity}
-                            onUpdateActivity={updateActivity}
-                            onDeleteActivity={deleteActivity}
-                        />
-                    } 
-                />
-            </Routes>
-        </Router>
+        <UserProvider>
+            <Router>
+                <Routes>
+                    {/* Public routes */}
+                    <Route path="/login" element={<LoginForm />} />
+                    <Route path="/signup" element={<SignupForm />} />
+                    
+                    {/* Protected routes */}
+                    <Route 
+                        path="/" 
+                        element={
+                            <ProtectedRoute>
+                                <MyCalendar cityDates={cityDates} />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    <Route 
+                        path="/city-card" 
+                        element={
+                            <ProtectedRoute>
+                                <CityCard onDateSelect={assignCityToDate} />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    <Route 
+                        path="/itinerary/:date" 
+                        element={
+                            <ProtectedRoute>
+                                <ItineraryPage 
+                                    cityDates={cityDates}
+                                    activities={dateActivities}
+                                    onAddActivity={addActivity}
+                                    onUpdateActivity={updateActivity}
+                                    onDeleteActivity={deleteActivity}
+                                />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    
+                    {/* Redirect any other routes to login */}
+                    <Route path="*" element={<Navigate to="/login" />} />
+                </Routes>
+            </Router>
+        </UserProvider>
     );
 };
 
