@@ -7,10 +7,10 @@ import CityCard from './components/CityCard/CityCard';
 import ItineraryPage from './components/ItineraryPage/ItineraryPage';
 import LoginForm from './components/LoginForm/LoginForm';
 import SignupForm from './components/SignupForm/SignupForm';
+import SignoutButton from './components/SignoutButton/SignoutButton';
 import { checkAuth } from './services/authService';
 import { formatRawDateString, sortActivitiesByTime } from './utils/dateTimeUtils';
 
-// Protected route component to handle authentication
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = checkAuth();
   
@@ -18,7 +18,12 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/login" />;
   }
   
-  return children;
+  return (
+    <>
+      <SignoutButton />
+      {children}
+    </>
+  );
 };
 
 const App = () => {

@@ -1,0 +1,24 @@
+.signoutButton {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    border: 2px solid var(--primary-pink);
+    border-radius: 12px;
+    background-color: var(--white);
+    color: var(--dark-pink);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 1000;
+  }
+  
+  .signoutButton:hover {
+    border: 2px solid var(--primary-pink);
+    
+  }
+  
+  .signoutButton:focus {
+    outline: none;
+  }

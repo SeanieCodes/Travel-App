@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import { checkAuth } from '../services/authService';
+import { checkAuth, logout as authLogout } from '../services/authService';
 
 export const UserContext = createContext();
 
@@ -15,8 +15,13 @@ export const UserProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
+  const logout = () => {
+    authLogout();
+    setUser(null);
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser, loading }}>
+    <UserContext.Provider value={{ user, setUser, loading, logout }}>
       {children}
     </UserContext.Provider>
   );
