@@ -232,3 +232,13 @@
     opacity: 0.9;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
 }
+
+.city-link {
+    color: var(--darker-pink);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.city-link:hover {
+    text-decoration: underline;
+}

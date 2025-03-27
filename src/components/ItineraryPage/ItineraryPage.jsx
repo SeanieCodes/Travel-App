@@ -57,6 +57,20 @@ const ItineraryPage = ({
         onDeleteActivity(date, index);
     };
 
+    const handleCityClick = () => {
+        if (cityForThisDate) {
+            navigate('/city-card', { 
+                state: { 
+                    city: {
+                        id: cityForThisDate.id,
+                        name: cityForThisDate.name.split(',')[0].trim(),
+                        country: cityForThisDate.name.split(',')[1]?.trim() || ''
+                    }
+                } 
+            });
+        }
+    };
+
     return (
         <div 
             className="itinerary-page"
@@ -67,7 +81,14 @@ const ItineraryPage = ({
                 <div className="date-header">
                     <h2>{formattedDate}</h2>
                     {cityForThisDate ? (
-                        <h3>City: {cityForThisDate.name}</h3>
+                        <h3>
+                            City: <span 
+                                className="city-link" 
+                                onClick={handleCityClick}
+                            >
+                                {cityForThisDate.name}
+                            </span>
+                        </h3>
                     ) : (
                         <h3>No city selected for this date</h3>
                     )}
