@@ -5,9 +5,10 @@ import { UserProvider, UserContext } from './contexts/UserContext';
 import MyCalendar from './components/MyCalendar/MyCalendar';
 import CityCard from './components/CityCard/CityCard';
 import ItineraryPage from './components/ItineraryPage/ItineraryPage';
+import TripPage from './components/TripPage/TripPage';
 import LoginForm from './components/LoginForm/LoginForm';
 import SignupForm from './components/SignupForm/SignupForm';
-import SignoutButton from './components/SignoutButton/SignoutButton';
+import NavButtons from './components/NavButtons/NavButtons';
 import { checkAuth } from './services/authService';
 import { getTravelPlan, saveTravelPlan } from './services/travelService';
 import { formatRawDateString, sortActivitiesByTime } from './utils/dateTimeUtils';
@@ -22,7 +23,7 @@ const ProtectedRoute = ({ children }) => {
   
   return (
     <>
-      <SignoutButton />
+      <NavButtons />
       {children}
     </>
   );
@@ -202,6 +203,14 @@ const AppContent = () => {
                                     onUpdateActivity={updateActivity}
                                     onDeleteActivity={deleteActivity}
                                 />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    <Route 
+                        path="/trips" 
+                        element={
+                            <ProtectedRoute>
+                                <TripPage cityDates={cityDates} />
                             </ProtectedRoute>
                         } 
                     />

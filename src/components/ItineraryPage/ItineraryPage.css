@@ -187,24 +187,6 @@
     flex: 1;
 }
 
-.back-button {
-    margin-top: 2rem;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: var(--white);
-    background-color: var(--primary-pink);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.back-button:hover {
-    background-color: var(--primary-pink);
-    transform: translateY(-1px);
-}
-
 .activity-actions {
     display: flex;
     gap: 1rem;  

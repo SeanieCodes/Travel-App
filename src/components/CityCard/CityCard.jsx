@@ -48,9 +48,6 @@ const CityCard = ({ onDateSelect }) => {
                     <h1>{`${currentCity.name}, ${currentCity.country}`}</h1>
                     <WeatherCard city={currentCity} />
                     <DateRangePicker onDateRangeSelect={handleDateRangeSelect} />
-                    <button onClick={() => navigate("/")} className="back-btn">
-                        Back to Calendar
-                    </button>
                 </div>
             )}
         </div>

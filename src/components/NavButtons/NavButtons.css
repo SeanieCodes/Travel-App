@@ -1,0 +1,30 @@
+.nav-buttons {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 1rem;
+  z-index: 1000;
+}
+
+.calendar-button,
+.trips-button,
+.signout-button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--dark-pink);
+  background-color: var(--white);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 20px var(--glow);
+}
+
+.calendar-button:hover,
+.trips-button:hover,
+.signout-button:hover {
+  background-color: var(--light-pink);
+  transform: translateY(-1px);
+}
