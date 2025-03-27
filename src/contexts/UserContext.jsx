@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import { checkAuth, logout as authLogout } from '../services/authService';
+import { checkAuth } from '../services/authService';
 
 export const UserContext = createContext();
 
@@ -8,20 +8,19 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const authenticatedUser = checkAuth();
-    if (authenticatedUser) {
-      setUser(authenticatedUser);
-    }
-    setLoading(false);
+    const loadUser = async () => {
+      const authenticatedUser = checkAuth();
+      if (authenticatedUser) {
+        setUser(authenticatedUser);
+      }
+      setLoading(false);
+    };
+    
+    loadUser();
   }, []);
 
-  const logout = () => {
-    authLogout();
-    setUser(null);
-  };
-
   return (
-    <UserContext.Provider value={{ user, setUser, loading, logout }}>
+    <UserContext.Provider value={{ user, setUser, loading }}>
       {children}
     </UserContext.Provider>
   );
