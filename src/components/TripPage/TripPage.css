@@ -60,6 +60,10 @@
     box-shadow: 0 0 20px var(--glow);
   }
   
+  .city-trip-container:last-child {
+    margin-bottom: 0;
+  }
+  
   .city-trip-title {
     font-size: 1.8rem;
     font-weight: 300;
