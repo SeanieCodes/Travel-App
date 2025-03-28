@@ -172,3 +172,13 @@
   width: 100% !important;
   font-weight: 500 !important;
 }
+
+.react-calendar__navigation button:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-pink);
+}
+
+.react-calendar__tile:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-pink);
+}
