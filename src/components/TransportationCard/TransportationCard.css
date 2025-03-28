@@ -1,0 +1,75 @@
+/* src/components/TransportationCard/TransportationCard.css */
+.transportation-card {
+    width: 100%;
+    max-width: 800px;
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 0 20px var(--glow);
+}
+
+.transportation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray);
+}
+
+.transportation-title {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--dark-blue);
+}
+
+.public-transit-badge {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background-color: var(--primary-pink);
+    color: var(--white);
+}
+
+.transit-hubs h3 {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--dark-blue);
+    margin-bottom: 1rem;
+}
+
+.hub-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hub-item {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    background-color: var(--light-pink);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.hub-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hub-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--dark-blue);
+    margin-bottom: 0.3rem;
+}
+
+.hub-address {
+    font-size: 1.1rem;  /* Increased from 0.9rem */
+    color: var(--dark-blue);
+    margin-bottom: 0.3rem;
+}

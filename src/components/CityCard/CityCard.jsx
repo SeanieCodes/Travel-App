@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { formatRawDateString } from '../../utils/dateTimeUtils';
 import CitySearch from '../CitySearch/CitySearch';
 import WeatherCard from '../WeatherCard/WeatherCard';
+import TransportationCard from '../TransportationCard/TransportationCard';
 import DateRangePicker from '../DateRangePicker/DateRangePicker';
 import backgroundImage from '../../assets/PinkFlower.png';
 import './CityCard.css';
@@ -47,6 +48,7 @@ const CityCard = ({ onDateSelect }) => {
                 <div className="city-card">
                     <h1>{`${currentCity.name}, ${currentCity.country}`}</h1>
                     <WeatherCard city={currentCity} />
+                    <TransportationCard city={currentCity} />
                     <DateRangePicker onDateRangeSelect={handleDateRangeSelect} />
                 </div>
             )}
