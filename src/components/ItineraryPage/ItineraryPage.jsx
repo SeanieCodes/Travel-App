@@ -201,13 +201,6 @@ const ItineraryPage = ({
                         </div>
                     ))}
                 </div>
-
-                <button 
-                    onClick={() => navigate('/')}
-                    className="back-button"
-                >
-                    Back to Calendar
-                </button>
             </div>
         </div>
     );
