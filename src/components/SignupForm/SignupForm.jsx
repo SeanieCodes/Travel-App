@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../services/authService';
-import backgroundImage from '../../assets/Pinkflower.png';
+import backgroundImage from '../../assets/bunny.png';
 import './SignupForm.css';
 
 const SignupForm = () => {

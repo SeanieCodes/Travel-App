@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import CitySearch from '../CitySearch/CitySearch';
 import { formatCalendarDate } from '../../utils/dateTimeUtils';
-import backgroundImage from '../../assets/PinkFlower.png';
+import backgroundImage from '../../assets/bunny.png';
 import "react-calendar/dist/Calendar.css";
 import "./MyCalendar.css";
 

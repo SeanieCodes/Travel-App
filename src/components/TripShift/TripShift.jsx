@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import DateRangePicker from '../DateRangePicker/DateRangePicker';
 import { formatDateForDisplay, getDatesInRange } from '../../utils/dateTimeUtils';
 import { shiftTripDates } from '../../services/travelService';
-import backgroundImage from '../../assets/PinkFlower.png';
+import backgroundImage from '../../assets/bunny.png';
 import './TripShift.css';
 
 const TripShift = ({ cityDates, setCityDates, dateActivities, setDateActivities }) => {

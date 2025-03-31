@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signIn } from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
-import backgroundImage from '../../assets/Pinkflower.png';
+import backgroundImage from '../../assets/bunny.png';
 import './LoginForm.css';
 
 const LoginForm = () => {

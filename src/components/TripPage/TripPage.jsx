@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { formatDateForDisplay } from '../../utils/dateTimeUtils';
 import { deleteTripDates } from '../../services/travelService';
 import CitySearch from '../CitySearch/CitySearch';
-import backgroundImage from '../../assets/PinkFlower.png';
+import backgroundImage from '../../assets/bunny.png';
 import './TripPage.css';
 
 const TripPage = ({ cityDates, setCityDates, setDateActivities }) => {
@@ -59,8 +59,6 @@ const TripPage = ({ cityDates, setCityDates, setDateActivities }) => {
     
     return trips;
   };
-
-  const trips = groupContinuousCityStays();
 
   const handleDateClick = (date) => {
     navigate(`/itinerary/${date}`);
@@ -129,6 +127,8 @@ const TripPage = ({ cityDates, setCityDates, setDateActivities }) => {
       setIsDeleting(false);
     }
   };
+
+  const trips = groupContinuousCityStays();
 
   return (
     <div 
