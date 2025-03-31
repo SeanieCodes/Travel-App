@@ -28,3 +28,10 @@
   background-color: var(--light-pink);
   transform: translateY(-1px);
 }
+
+.calendar-button:focus,
+.trips-button:focus,
+.signout-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-pink);
+}
