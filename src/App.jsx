@@ -1,5 +1,3 @@
-// Update App.jsx to add the TripShift route
-
 import './App.css';
 import { useState, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -178,14 +176,20 @@ const AppContent = () => {
                     <Route path="/login" element={<LoginForm />} />
                     <Route path="/signup" element={<SignupForm />} />
                     
-                    {/* Protected routes */}
+                    {/* Protected routes - changed the default route to redirect to trips */}
                     <Route 
                         path="/" 
+                        element={
+                            <Navigate to="/trips" />
+                        } 
+                    />
+                    <Route
+                        path="/calendar"
                         element={
                             <ProtectedRoute>
                                 <MyCalendar cityDates={cityDates} />
                             </ProtectedRoute>
-                        } 
+                        }
                     />
                     <Route 
                         path="/city-card" 
@@ -235,8 +239,8 @@ const AppContent = () => {
                         } 
                     />
                     
-                    {/* Redirect any other routes to login */}
-                    <Route path="*" element={<Navigate to="/login" />} />
+                    {/* Redirect any other routes to the trips page */}
+                    <Route path="*" element={<Navigate to="/trips" />} />
                 </Routes>
             </Router>
         </>
