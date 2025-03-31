@@ -54,7 +54,7 @@ const CitySearch = ({ onCitySelect }) => {
             <div className="search-bar">
                 <input
                     type="text"
-                    placeholder="Enter city name..."
+                    placeholder="Search for a city..."
                     value={searchQuery}
                     onChange={handleSearchChange}
                 />

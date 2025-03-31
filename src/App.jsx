@@ -1,3 +1,5 @@
+// Update App.jsx to add the TripShift route
+
 import './App.css';
 import { useState, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -6,6 +8,7 @@ import MyCalendar from './components/MyCalendar/MyCalendar';
 import CityCard from './components/CityCard/CityCard';
 import ItineraryPage from './components/ItineraryPage/ItineraryPage';
 import TripPage from './components/TripPage/TripPage';
+import TripShift from './components/TripShift/TripShift';
 import LoginForm from './components/LoginForm/LoginForm';
 import SignupForm from './components/SignupForm/SignupForm';
 import NavButtons from './components/NavButtons/NavButtons';
@@ -206,19 +209,30 @@ const AppContent = () => {
                             </ProtectedRoute>
                         } 
                     />
-                    // In App.jsx, update the TripPage route:
-
                     <Route 
-                    path="/trips" 
-                    element={
-                        <ProtectedRoute>
-                        <TripPage 
-                            cityDates={cityDates}
-                            setCityDates={setCityDates}
-                            setDateActivities={setDateActivities}
-                        />
-                        </ProtectedRoute>
-                    } 
+                        path="/trips" 
+                        element={
+                            <ProtectedRoute>
+                                <TripPage 
+                                    cityDates={cityDates}
+                                    setCityDates={setCityDates}
+                                    setDateActivities={setDateActivities}
+                                />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    <Route 
+                        path="/trip-shift" 
+                        element={
+                            <ProtectedRoute>
+                                <TripShift 
+                                    cityDates={cityDates}
+                                    setCityDates={setCityDates}
+                                    dateActivities={dateActivities}
+                                    setDateActivities={setDateActivities}
+                                />
+                            </ProtectedRoute>
+                        } 
                     />
                     
                     {/* Redirect any other routes to login */}

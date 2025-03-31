@@ -1,0 +1,133 @@
+.trip-shift-page {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-repeat: repeat;
+    background-size: 380px;
+    background-position: center -50px;
+    background-attachment: fixed;
+    opacity: 0.8;
+  }
+  
+  .shift-container {
+    width: 800px;
+    max-width: 100%;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
+    padding: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 2px solid var(--primary-pink);
+  }
+  
+  .shift-container h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--dark-blue);
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray);
+  }
+  
+  .trip-details {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: var(--light-pink);
+    border-radius: 12px;
+    text-align: center;
+  }
+  
+  .trip-details h2 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--dark-blue);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+  
+  .date-range, .days-count {
+    font-size: 1.2rem;
+    color: var(--dark-blue);
+    margin: 0.5rem 0;
+  }
+  
+  .date-picker-section {
+    margin-bottom: 2rem;
+  }
+  
+  .date-picker-section h3 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--dark-blue);
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  
+  .instructions {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--dark-blue);
+    margin-bottom: 1.5rem;
+  }
+  
+  .error-message {
+    background-color: rgba(250, 4, 4, 0.1);
+    color: #fa0404;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 1rem 0;
+  }
+  
+  .success-message {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 1rem 0;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  
+  .cancel-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background-color: var(--gray);
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .cancel-button:hover {
+    transform: translateY(-2px);
+  }
+  
+  .cancel-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: var(--dark-blue);
+  }

@@ -1,3 +1,4 @@
+// CityCard.jsx
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { formatRawDateString } from '../../utils/dateTimeUtils';
@@ -48,10 +49,15 @@ const CityCard = ({ onDateSelect }) => {
             {currentCity && (
                 <div className="city-card">
                     <h1>{`${currentCity.name}, ${currentCity.country}`}</h1>
+                    
+                    {/* DateRangePicker moved here, between city name and WeatherCard */}
+                    <div className="date-picker-section">
+                        <DateRangePicker onDateRangeSelect={handleDateRangeSelect} />
+                    </div>
+                    
                     <WeatherCard city={currentCity} />
                     <TransportationCard city={currentCity} />
                     <LandmarksCard city={currentCity} />
-                    <DateRangePicker onDateRangeSelect={handleDateRangeSelect} />
                 </div>
             )}
         </div>

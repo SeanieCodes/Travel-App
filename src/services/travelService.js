@@ -56,29 +56,57 @@ export const saveTravelPlan = async (travelData) => {
 };
 
 export const deleteTripDates = async (dates) => {
-    try {
-      const token = localStorage.getItem('token');
-      
-      if (!token) {
-        throw new Error('No authentication token');
-      }
-      
-      const response = await fetch(`${API_URL}/travel-plans/dates`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ dates })
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to delete travel dates');
-      }
-      
-      return await response.json();
-    } catch (error) {
-      console.error('Error deleting travel dates:', error);
-      throw error;
+  try {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      throw new Error('No authentication token');
     }
+    
+    const response = await fetch(`${API_URL}/travel-plans/dates`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ dates })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to delete travel dates');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error deleting travel dates:', error);
+    throw error;
+  }
+};
+
+export const shiftTripDates = async (dateMapping) => {
+  try {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      throw new Error('No authentication token');
+    }
+    
+    const response = await fetch(`${API_URL}/travel-plans/shift`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ dateMapping })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to shift travel dates');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error shifting travel dates:', error);
+    throw error;
+  }
 };

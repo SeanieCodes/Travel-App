@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { formatDateForDisplay } from '../../utils/dateTimeUtils';
 import { deleteTripDates } from '../../services/travelService';
+import CitySearch from '../CitySearch/CitySearch';
 import backgroundImage from '../../assets/PinkFlower.png';
 import './TripPage.css';
 
@@ -11,6 +12,15 @@ const TripPage = ({ cityDates, setCityDates, setDateActivities }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState(null);
   const [deleteSuccess, setDeleteSuccess] = useState(null);
+
+  // Function to handle city selection from the search
+  const handleCitySelect = (city) => {
+    navigate('/city-card', { 
+      state: { 
+        city
+      } 
+    });
+  };
 
   // Function to group dates by continuous city stays
   const groupContinuousCityStays = () => {
@@ -74,6 +84,10 @@ const TripPage = ({ cityDates, setCityDates, setDateActivities }) => {
     setDeleteError(null);
   };
   
+  const handleShiftClick = (trip) => {
+    navigate('/trip-shift', { state: { trip } });
+  };
+  
   const handleConfirmDelete = async () => {
     if (!confirmDelete) return;
     
@@ -123,6 +137,11 @@ const TripPage = ({ cityDates, setCityDates, setDateActivities }) => {
     >
       <h1>My Trips</h1>
       
+      {/* City Search component */}
+      <div className="trip-search-container">
+        <CitySearch onCitySelect={handleCitySelect} />
+      </div>
+      
       {/* Success notification */}
       {deleteSuccess && (
         <div className="success-notification">
@@ -140,12 +159,20 @@ const TripPage = ({ cityDates, setCityDates, setDateActivities }) => {
             <div key={index} className="city-trip-container">
               <div className="trip-header">
                 <h2 className="city-trip-title">{trip.cityName}</h2>
-                <button 
-                  className="delete-trip-button"
-                  onClick={() => handleDeleteClick(trip)}
-                >
-                  Delete Trip
-                </button>
+                <div className="trip-actions">
+                  <button 
+                    className="shift-trip-button"
+                    onClick={() => handleShiftClick(trip)}
+                  >
+                    Shift Trip
+                  </button>
+                  <button 
+                    className="delete-trip-button"
+                    onClick={() => handleDeleteClick(trip)}
+                  >
+                    Delete Trip
+                  </button>
+                </div>
               </div>
               
               <div className="trip-date-range">
