@@ -64,14 +64,43 @@
     margin-bottom: 0;
   }
   
+  .trip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0 0 0.5rem 0;
+    border-bottom: 1px solid var(--gray);
+  }
+  
   .city-trip-title {
     font-size: 1.8rem;
     font-weight: 300;
     color: var(--dark-blue);
+    margin: 0;
+  }
+  
+  .delete-trip-button {
+    background-color: #fa0404;
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .delete-trip-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+  
+  .trip-date-range {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--dark-blue);
     margin-bottom: 1rem;
-    padding: 0 0 0.5rem 0;
-    border-bottom: 1px solid var(--gray);
-    text-align: center;
   }
   
   .date-cards-container {
@@ -104,9 +133,104 @@
     margin-bottom: 0.4rem;
   }
   
-  .trip-date-range {
-    font-size: 1.2rem;
-    font-weight: 300;
+  /* Delete Confirmation Dialog */
+  .delete-confirmation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .delete-confirmation-dialog {
+    width: 500px;
+    max-width: 90%;
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px var(--shadow);
+    border: 2px solid var(--primary-pink);
+  }
+  
+  .delete-confirmation-dialog h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--dark-blue);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .delete-confirmation-dialog p {
+    font-size: 1.1rem;
     color: var(--dark-blue);
     margin-bottom: 1rem;
+  }
+  
+  .warning-text {
+    color: #fa0404;
+    font-weight: 500;
+  }
+  
+  .confirmation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .cancel-delete-button, .confirm-delete-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .cancel-delete-button {
+    background-color: var(--gray);
+    color: var(--dark-blue);
+  }
+  
+  .confirm-delete-button {
+    background-color: #fa0404;
+    color: var(--white);
+  }
+  
+  .cancel-delete-button:hover, .confirm-delete-button:hover {
+    transform: translateY(-2px);
+  }
+  
+  .delete-error-message {
+    background-color: rgba(250, 4, 4, 0.1);
+    color: #fa0404;
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 1rem 0;
+  }
+  
+  .success-notification {
+    position: fixed;
+    top: 7rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    z-index: 2000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: fadeOut 0.5s ease-in-out 2.5s forwards;
+  }
+  
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
   }

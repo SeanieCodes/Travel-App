@@ -206,13 +206,19 @@ const AppContent = () => {
                             </ProtectedRoute>
                         } 
                     />
+                    // In App.jsx, update the TripPage route:
+
                     <Route 
-                        path="/trips" 
-                        element={
-                            <ProtectedRoute>
-                                <TripPage cityDates={cityDates} />
-                            </ProtectedRoute>
-                        } 
+                    path="/trips" 
+                    element={
+                        <ProtectedRoute>
+                        <TripPage 
+                            cityDates={cityDates}
+                            setCityDates={setCityDates}
+                            setDateActivities={setDateActivities}
+                        />
+                        </ProtectedRoute>
+                    } 
                     />
                     
                     {/* Redirect any other routes to login */}

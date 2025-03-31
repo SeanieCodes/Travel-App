@@ -1,10 +1,16 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { formatDateForDisplay } from '../../utils/dateTimeUtils';
+import { deleteTripDates } from '../../services/travelService';
 import backgroundImage from '../../assets/PinkFlower.png';
 import './TripPage.css';
 
-const TripPage = ({ cityDates }) => {
+const TripPage = ({ cityDates, setCityDates, setDateActivities }) => {
   const navigate = useNavigate();
+  const [confirmDelete, setConfirmDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState(null);
+  const [deleteSuccess, setDeleteSuccess] = useState(null);
 
   // Function to group dates by continuous city stays
   const groupContinuousCityStays = () => {
@@ -56,6 +62,59 @@ const TripPage = ({ cityDates }) => {
     
     return `${formatDateForDisplay(dates[0])} - ${formatDateForDisplay(dates[dates.length - 1])}`;
   };
+  
+  const handleDeleteClick = (trip) => {
+    // Open confirmation dialog
+    setConfirmDelete(trip);
+    setDeleteError(null);
+  };
+  
+  const handleCancelDelete = () => {
+    setConfirmDelete(null);
+    setDeleteError(null);
+  };
+  
+  const handleConfirmDelete = async () => {
+    if (!confirmDelete) return;
+    
+    setIsDeleting(true);
+    setDeleteError(null);
+    
+    try {
+      // Send delete request to backend
+      await deleteTripDates(confirmDelete.dates);
+      
+      // Update local state to reflect the deletion
+      const newCityDates = { ...cityDates };
+      confirmDelete.dates.forEach(date => {
+        delete newCityDates[date];
+      });
+      setCityDates(newCityDates);
+      
+      // Also update dateActivities (for any activities on those dates)
+      setDateActivities(prev => {
+        const newActivities = { ...prev };
+        confirmDelete.dates.forEach(date => {
+          delete newActivities[date];
+        });
+        return newActivities;
+      });
+      
+      // Show success message
+      setDeleteSuccess(`Successfully deleted trip to ${confirmDelete.cityName}`);
+      setTimeout(() => {
+        setDeleteSuccess(null);
+      }, 3000);
+      
+      // Close dialog
+      setConfirmDelete(null);
+    } catch (error) {
+      setDeleteError("Failed to delete trip. Please try again.");
+      console.error('Delete trip error:', error);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <div 
@@ -63,6 +122,14 @@ const TripPage = ({ cityDates }) => {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <h1>My Trips</h1>
+      
+      {/* Success notification */}
+      {deleteSuccess && (
+        <div className="success-notification">
+          {deleteSuccess}
+        </div>
+      )}
+      
       <div className="trips-container">
         {trips.length === 0 ? (
           <div className="no-trips">
@@ -71,7 +138,16 @@ const TripPage = ({ cityDates }) => {
         ) : (
           trips.map((trip, index) => (
             <div key={index} className="city-trip-container">
-              <h2 className="city-trip-title">{trip.cityName}</h2>
+              <div className="trip-header">
+                <h2 className="city-trip-title">{trip.cityName}</h2>
+                <button 
+                  className="delete-trip-button"
+                  onClick={() => handleDeleteClick(trip)}
+                >
+                  Delete Trip
+                </button>
+              </div>
+              
               <div className="trip-date-range">
                 {formatDateRange(trip.dates)}
               </div>
@@ -92,6 +168,39 @@ const TripPage = ({ cityDates }) => {
           ))
         )}
       </div>
+      
+      {/* Confirmation Dialog */}
+      {confirmDelete && (
+        <div className="delete-confirmation-overlay">
+          <div className="delete-confirmation-dialog">
+            <h3>Delete Trip Confirmation</h3>
+            <p>Are you sure you want to delete your trip to <strong>{confirmDelete.cityName}</strong>?</p>
+            <p>This will remove all plans for dates: <strong>{formatDateRange(confirmDelete.dates)}</strong></p>
+            <p className="warning-text">This action cannot be undone!</p>
+            
+            {deleteError && (
+              <div className="delete-error-message">{deleteError}</div>
+            )}
+            
+            <div className="confirmation-buttons">
+              <button 
+                className="cancel-delete-button"
+                onClick={handleCancelDelete}
+                disabled={isDeleting}
+              >
+                Cancel
+              </button>
+              <button 
+                className="confirm-delete-button"
+                onClick={handleConfirmDelete}
+                disabled={isDeleting}
+              >
+                {isDeleting ? 'Deleting...' : 'Delete Trip'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
