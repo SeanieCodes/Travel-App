@@ -81,7 +81,7 @@
   }
   
   .delete-trip-button {
-    background-color: #fa0404;
+    background-color: var(--dark-pink);
     color: var(--white);
     border: none;
     border-radius: 8px;
@@ -199,7 +199,7 @@
   }
   
   .confirm-delete-button {
-    background-color: #fa0404;
+    background-color: var(--dark-pink);
     color: var(--white);
   }
   
