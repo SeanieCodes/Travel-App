@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { formatDateForDisplay } from '../../utils/dateTimeUtils';
+import CitySearch from '../CitySearch/CitySearch';
 import backgroundImage from '../../assets/PinkFlower.png';
 import './ItineraryPage.css';
 
@@ -71,12 +72,26 @@ const ItineraryPage = ({
         }
     };
 
+    const handleCitySelect = (city) => {
+        navigate('/city-card', { 
+            state: { 
+                city
+            } 
+        });
+    };
+
     return (
         <div 
             className="itinerary-page"
             style={{ backgroundImage: `url(${backgroundImage})` }}
         >
             <h1>Plan Your Day</h1>
+            
+            {/* CitySearch component added here, between title and main container */}
+            <div className="itinerary-search-container">
+                <CitySearch onCitySelect={handleCitySelect} />
+            </div>
+            
             <div className="itinerary-container">
                 <div className="date-header">
                     <h2>{formattedDate}</h2>
@@ -186,6 +201,13 @@ const ItineraryPage = ({
                         </div>
                     ))}
                 </div>
+
+                <button 
+                    onClick={() => navigate('/')}
+                    className="back-button"
+                >
+                    Back to Calendar
+                </button>
             </div>
         </div>
     );
