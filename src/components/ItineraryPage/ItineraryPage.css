@@ -130,15 +130,19 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
+    box-shadow: 0 0 20px var(--glow);
+
 }
 
 .add-button:hover {
     background-color: var(--primary-pink);
     transform: translateY(-1px);
+    box-shadow: 0 0 20px var(--glow);
 }
 
 .add-button:focus {
     outline: none;
+    box-shadow: 0 0 20px var(--glow);
 }
 
 .activities-list {
