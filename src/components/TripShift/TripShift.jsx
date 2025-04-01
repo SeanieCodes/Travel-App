@@ -121,7 +121,6 @@ const TripShift = ({ cityDates, setCityDates, dateActivities, setDateActivities 
         </div>
         
         <div className="date-picker-section">
-          <h3>Select New Dates</h3>
           <p className="instructions">
             Please select a date range with the same number of days ({trip.dates.length} days)
           </p>
