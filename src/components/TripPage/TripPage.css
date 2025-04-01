@@ -113,7 +113,7 @@
   .date-card {
     background-color: var(--light-pink);
     border-radius: 8px;
-    padding: 0.8rem;
+    padding: 1.2rem 0.8rem 0.8rem;
     text-align: center;
     transition: all 0.2s ease;
     cursor: pointer;
@@ -133,7 +133,6 @@
     margin-bottom: 0.4rem;
   }
   
-  /* Delete Confirmation Dialog */
   .delete-confirmation-overlay {
     position: fixed;
     top: 0;
