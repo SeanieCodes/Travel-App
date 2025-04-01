@@ -129,6 +129,7 @@ const ItineraryPage = ({
                         className="description-input"
                     />
                     <button 
+                        type="button"
                         onClick={handleAddActivity}
                         className="add-button"
                     >
@@ -161,12 +162,14 @@ const ItineraryPage = ({
                                         className="description-input"
                                     />
                                     <button 
+                                        type="button"
                                         onClick={() => saveEdit(index)}
                                         className="save-button"
                                     >
                                         Save
                                     </button>
                                     <button 
+                                        type="button"
                                         onClick={cancelEditing}
                                         className="cancel-button"
                                     >
@@ -183,12 +186,14 @@ const ItineraryPage = ({
                                     </span>
                                     <div className="activity-actions">
                                         <button 
+                                            type="button"
                                             onClick={() => startEditing(index)}
                                             className="edit-button"
                                         >
                                             Edit
                                         </button>
                                         <button 
+                                            type="button"
                                             onClick={() => handleDelete(index)}
                                             className="delete-button"
                                         >
