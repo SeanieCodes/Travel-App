@@ -16,6 +16,7 @@ const CityItineraryPrint = () => {
   useEffect(() => {
     // Get trip data from location state
     if (location.state?.trip) {
+      console.log("Trip data received:", location.state.trip);
       setTrip(location.state.trip);
     } else {
       // Redirect if no trip data
@@ -33,7 +34,9 @@ const CityItineraryPrint = () => {
     try {
       const token = localStorage.getItem('token');
       
-      // Create form data
+      console.log("Sending dates to backend:", trip.dates);
+      
+      // Use the full URL with backend port
       const response = await fetch('http://localhost:5001/api/export/trip/pdf', {
         method: 'POST',
         headers: {
@@ -66,6 +69,7 @@ const CityItineraryPrint = () => {
       
       setMessage('PDF downloaded successfully!');
     } catch (error) {
+      console.error("PDF generation error:", error);
       setError(error.message || 'Failed to download PDF');
     } finally {
       setIsExporting(false);
@@ -88,6 +92,7 @@ const CityItineraryPrint = () => {
     try {
       const token = localStorage.getItem('token');
       
+      // Use the full URL with backend port
       const response = await fetch('http://localhost:5001/api/export/trip/email', {
         method: 'POST',
         headers: {
@@ -107,6 +112,7 @@ const CityItineraryPrint = () => {
       
       setMessage(data.message || `Itinerary for ${trip.cityName} sent to your email!`);
     } catch (error) {
+      console.error("Email sending error:", error);
       setError(error.message || 'Failed to send email');
     } finally {
       setIsEmailing(false);
@@ -122,6 +128,9 @@ const CityItineraryPrint = () => {
   if (!trip) {
     return <div className="loading">Loading trip details...</div>;
   }
+  
+  // Debug log to see what activities are available
+  console.log("Activities for rendering:", trip.activities);
   
   return (
     <div 

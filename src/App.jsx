@@ -220,6 +220,7 @@ const AppContent = () => {
                                 <TripPage 
                                     cityDates={cityDates}
                                     setCityDates={setCityDates}
+                                    dateActivities={dateActivities}
                                     setDateActivities={setDateActivities}
                                 />
                             </ProtectedRoute>
