@@ -1,14 +1,15 @@
 import './App.css';
 import { useState, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { UserProvider, UserContext } from './contexts/UserContext';
 import MyCalendar from './components/MyCalendar/MyCalendar';
 import CityCard from './components/CityCard/CityCard';
 import ItineraryPage from './components/ItineraryPage/ItineraryPage';
 import TripPage from './components/TripPage/TripPage';
 import TripShift from './components/TripShift/TripShift';
+import CityItineraryPrint from './components/CityItineraryPrint/CityItineraryPrint';
 import LoginForm from './components/LoginForm/LoginForm';
-import SignupForm from './components/SignupForm/SignupForm';
 import NavButtons from './components/NavButtons/NavButtons';
 import { checkAuth } from './services/authService';
 import { getTravelPlan, saveTravelPlan } from './services/travelService';
@@ -174,9 +175,8 @@ const AppContent = () => {
                 <Routes>
                     {/* Public routes */}
                     <Route path="/login" element={<LoginForm />} />
-                    <Route path="/signup" element={<SignupForm />} />
                     
-                    {/* Protected routes - changed the default route to redirect to trips */}
+                    {/* Protected routes */}
                     <Route 
                         path="/" 
                         element={
@@ -238,6 +238,14 @@ const AppContent = () => {
                             </ProtectedRoute>
                         } 
                     />
+                    <Route 
+                        path="/print-trip" 
+                        element={
+                            <ProtectedRoute>
+                                <CityItineraryPrint />
+                            </ProtectedRoute>
+                        } 
+                    />
                     
                     {/* Redirect any other routes to the trips page */}
                     <Route path="*" element={<Navigate to="/trips" />} />
@@ -248,10 +256,15 @@ const AppContent = () => {
 };
 
 const App = () => {
+    // Get Google client ID from environment variables
+    const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    
     return (
-        <UserProvider>
-            <AppContent />
-        </UserProvider>
+        <GoogleOAuthProvider clientId={googleClientId}>
+            <UserProvider>
+                <AppContent />
+            </UserProvider>
+        </GoogleOAuthProvider>
     );
 };
 

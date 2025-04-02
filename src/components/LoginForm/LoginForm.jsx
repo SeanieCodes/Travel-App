@@ -1,6 +1,7 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signIn } from '../../services/authService';
+import { GoogleLogin } from '@react-oauth/google';
+import { handleGoogleToken } from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
 import backgroundImage from '../../assets/bunny.png';
 import './LoginForm.css';
@@ -8,58 +9,32 @@ import './LoginForm.css';
 const LoginForm = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
-  const [formData, setFormData] = useState({
-    username: '',
-    password: ''
-  });
   const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
+  // Check if user is redirected with error
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorParam = urlParams.get('error');
+    
+    if (errorParam) {
+      setError('Google authentication failed. Please try again.');
+    }
+  }, []);
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      setError('');
+      const userData = await handleGoogleToken(credentialResponse.credential);
+      setUser(userData);
+      navigate('/');
+    } catch (error) {
+      setError('Google authentication failed. Please try again.');
+      console.error('Google login error:', error);
+    }
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    
-    if (!formData.username || !formData.password) {
-      setError('Please fill in all fields');
-      return;
-    }
-
-    setError('');
-    setIsSubmitting(true);
-    
-    try {
-      const response = await signIn(formData);
-      
-      if (response && response.token) {
-        localStorage.setItem(
-          'user',
-          JSON.stringify({
-            username: response.username,
-            _id: response._id
-          })
-        );
-        localStorage.setItem('token', response.token);
-        
-        setUser({
-          username: response.username,
-          _id: response._id
-        });
-        
-        navigate('/');
-      }
-    } catch (error) {
-      setError('Invalid username or password. Please try again.');
-      console.error(error);
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handleGoogleError = () => {
+    setError('Google authentication failed. Please try again.');
   };
 
   return (
@@ -72,60 +47,22 @@ const LoginForm = () => {
       </div>
       
       <div className="loginContainer">
-        <h2>Welcome</h2>
+        <h2>Welcome to Alcove</h2>
+        <p className="login-description">Your smart travel companion</p>
         
-        <form onSubmit={handleSubmit} className="loginForm">
-          <div className="formGroup">
-            <label htmlFor="username">
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              placeholder="Enter username"
-              required
-            />
-          </div>
-
-          <div className="formGroup">
-            <label htmlFor="password">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              placeholder="Enter password"
-              required
-            />
-          </div>
-
-          {error && <div className="errorMessage">{error}</div>}
-
-          <button 
-            type="submit" 
-            className="loginButton"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Logging in...' : 'Log In'}
-          </button>
-
-          <p className="signupPrompt">
-            Don't have an account? 
-            <button 
-              type="button" 
-              className="signupLink"
-              onClick={() => navigate('/signup')}
-            >
-              Sign up here
-            </button>
-          </p>
-        </form>
+        <div className="google-login-container">
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            theme="outline"
+            size="large"
+            text="continue_with"
+            shape="rectangular"
+            width={300}
+          />
+        </div>
+        
+        {error && <div className="errorMessage">{error}</div>}
       </div>
     </div>
   );

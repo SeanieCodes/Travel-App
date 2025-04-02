@@ -6,7 +6,7 @@ import CitySearch from '../CitySearch/CitySearch';
 import backgroundImage from '../../assets/bunny.png';
 import './TripPage.css';
 
-const TripPage = ({ cityDates, setCityDates, setDateActivities }) => {
+const TripPage = ({ cityDates, setCityDates, dateActivities, setDateActivities }) => {
   const navigate = useNavigate();
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -160,6 +160,20 @@ const TripPage = ({ cityDates, setCityDates, setDateActivities }) => {
               <div className="trip-header">
                 <h2 className="city-trip-title">{trip.cityName}</h2>
                 <div className="trip-actions">
+                  <button 
+                    className="print-trip-button"
+                    onClick={() => navigate('/print-trip', { 
+                      state: { 
+                        trip: {
+                          cityName: trip.cityName,
+                          dates: trip.dates,
+                          activities: dateActivities
+                        } 
+                      }
+                    })}
+                  >
+                    Print Trip
+                  </button>
                   <button 
                     className="shift-trip-button"
                     onClick={() => handleShiftClick(trip)}

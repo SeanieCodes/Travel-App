@@ -112,8 +112,8 @@
   .cancel-button {
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
-    background-color: var(--gray);
-    color: var(--dark-blue);
+    background-color: var(--primary-pink);
+    color: var(--white);
     border: none;
     border-radius: 8px;
     cursor: pointer;

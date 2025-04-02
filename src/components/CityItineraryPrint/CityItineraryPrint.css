@@ -1,0 +1,223 @@
+.print-page {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-repeat: repeat;
+    background-size: 380px;
+    background-position: center -50px;
+    background-attachment: fixed;
+    opacity: 0.8;
+  }
+  
+  .print-container {
+    width: 800px;
+    max-width: 100%;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 2px solid var(--primary-pink);
+  }
+  
+  .print-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray);
+  }
+  
+  .print-header h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--dark-blue);
+    margin: 0 0 1rem 0;
+  }
+  
+  .print-header .date-range {
+    font-size: 1.2rem;
+    color: var(--dark-blue);
+    margin: 0.5rem 0;
+  }
+  
+  .print-header .days-count {
+    font-size: 1.1rem;
+    color: var(--dark-blue);
+    margin: 0.5rem 0;
+  }
+  
+  .print-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .download-button,
+  .email-button,
+  .back-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .download-button {
+    background-color: var(--primary-pink);
+    color: var(--white);
+  }
+  
+  .email-button {
+    background-color: var(--primary-pink);
+    color: var(--white);
+  }
+  
+  .back-button {
+    background-color: var(--primary-pink);
+    color: var(--white);
+  }
+  
+  .download-button:hover,
+  .email-button:hover,
+  .back-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+  
+  .download-button:disabled,
+  .email-button:disabled,
+  .back-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .success-message {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 1rem 0;
+  }
+  
+  .error-message {
+    background-color: rgba(250, 4, 4, 0.1);
+    color: #fa0404;
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 1rem 0;
+  }
+  
+  .print-preview {
+    background-color: var(--light-pink);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    box-shadow: 0 0 10px var(--glow);
+  }
+  
+  .print-preview h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--dark-blue);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--gray);
+    padding-bottom: 0.5rem;
+  }
+  
+  .day-preview {
+    margin-bottom: 2rem;
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 0 15px var(--glow);
+  }
+  
+  .day-preview h3 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--dark-blue);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    background-color: var(--light-pink);
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .activities-list {
+    margin-top: 1rem;
+  }
+  
+  .activity-item {
+    display: flex;
+    margin-bottom: 0.8rem;
+    padding: 0.8rem;
+    background-color: var(--light-pink);
+    border-radius: 5px;
+    box-shadow: 0 0 10px var(--glow);
+  }
+  
+  .activity-time {
+    font-weight: 500;
+    color: var(--dark-blue);
+    min-width: 80px;
+    margin-right: 1rem;
+  }
+  
+  .activity-description {
+    color: var(--dark-blue);
+    flex: 1;
+  }
+  
+  .no-activities {
+    text-align: center;
+    color: var(--dark-blue);
+    font-style: italic;
+    padding: 1rem;
+    background-color: var(--light-pink);
+    border-radius: 5px;
+  }
+  
+  @media print {
+    .print-actions {
+      display: none;
+    }
+    
+    .success-message,
+    .error-message {
+      display: none;
+    }
+    
+    .print-container {
+      box-shadow: none;
+      padding: 0;
+      border: none;
+    }
+    
+    .print-preview {
+      box-shadow: none;
+      background-color: white;
+      padding: 0;
+    }
+    
+    .print-preview h2 {
+      display: none;
+    }
+  }

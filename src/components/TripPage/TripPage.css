@@ -254,3 +254,19 @@
     transform: translateY(-2px);
     opacity: 0.9;
   }
+
+.print-trip-button {
+    background-color: var(--dark-pink);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .print-trip-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }

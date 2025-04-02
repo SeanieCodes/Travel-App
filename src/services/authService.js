@@ -14,30 +14,42 @@ export const signIn = async (credentials) => {
       throw new Error('Authentication failed');
     }
 
-    return await response.json();
+    const data = await response.json();
+    
+    // Store auth data
+    localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem('token', data.token);
+    
+    return data;
   } catch (error) {
     console.error('Login error:', error);
     throw error;
   }
 };
 
-export const signUp = async (userData) => {
+export const handleGoogleToken = async (credential) => {
   try {
-    const response = await fetch(`${API_URL}/auth/register`, {
+    const response = await fetch(`${API_URL}/auth/google/verify`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify({ credential }),
     });
 
     if (!response.ok) {
-      throw new Error('Registration failed');
+      throw new Error('Google authentication failed');
     }
 
-    return await response.json();
+    const data = await response.json();
+    
+    // Store user data and token
+    localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem('token', data.token);
+    
+    return data.user;
   } catch (error) {
-    console.error('Registration error:', error);
+    console.error('Google authentication error:', error);
     throw error;
   }
 };

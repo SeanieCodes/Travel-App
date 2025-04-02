@@ -45,72 +45,28 @@
     margin-top: 2rem;
     border: 2px solid var(--primary-pink);
     box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
+    text-align: center;
   }
   
   .loginContainer h2 {
-    text-align: center;
     color: var(--dark-blue);
     font-weight: 300;
     font-size: 1.8rem;
     margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
   }
   
-  .loginForm {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .formGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .formGroup label {
+  .login-description {
     color: var(--dark-blue);
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-align: left;
-    align-self: flex-start;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    font-weight: 300;
   }
   
-  .formGroup input {
-    padding: 12px;
-    border: 2px solid var(--primary-pink);
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-    color: var(--black);
-  }
-  
-  .formGroup input:focus {
-    outline: none;
-    border-color: var(--dark-pink);
-    box-shadow: 0 0 10px var(--glow);
-  }
-  
-  .loginButton {
-    background-color: var(--primary-pink);
-    color: var(--white);
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-top: 1rem;
-  }
-  
-  .loginButton:hover {
-    box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-pink);
-    transform: translateY(-1px);
-  }
-  
-  .loginButton:focus {
-    outline: none;
+  .google-login-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
   }
   
   .errorMessage {
@@ -120,37 +76,5 @@
     padding: 0.5rem;
     background-color: rgba(250, 4, 4, 0.1);
     border-radius: 6px;
-  }
-  
-  .signupPrompt {
-    text-align: center;
     margin-top: 1rem;
-    font-size: 0.9rem;
-    color: var(--dark-blue);
-  }
-  
-  .signupLink {
-    background: none;
-    border: none;
-    color: var(--dark-pink);
-    font-weight: 500;
-    cursor: pointer;
-    margin-left: 5px;
-    padding: 0;
-    font-size: 0.9rem;
-  }
-  
-  .signupLink:hover {
-    color: var(--darker-pink);
-    text-decoration: underline;
-  }
-  
-  .signupLink:focus {
-    outline: none;
-  }
-
-  .loginButton:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-pink);
-    background-color: var(--dark-pink);
   }
