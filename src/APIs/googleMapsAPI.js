@@ -1,5 +1,5 @@
-const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-const PROXY_BASE_URL = 'http://localhost:5001/api/proxy?url=';
+const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
+const PROXY_BASE_URL = `${API_URL}/proxy?url=`;
 
 // Helper function to ensure we're making secure requests
 function ensureHttps(url) {
