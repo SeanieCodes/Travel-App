@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:5001/api';
+// Define the base API URL from environment variable
+const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
 
 export const signIn = async (credentials) => {
   try {

@@ -13,31 +13,36 @@ const CityItineraryPrint = () => {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
   
+  // When the component first loads or the location state changes, 
+  // grab the trip data passed from the previous page
   useEffect(() => {
-    // Get trip data from location state
     if (location.state?.trip) {
-      console.log("Trip data received:", location.state.trip);
       setTrip(location.state.trip);
     } else {
-      // Redirect if no trip data
+      // If no trip data exists, redirect back to trips page
       navigate('/trips');
     }
   }, [location.state, navigate]);
 
+  // Function to download PDF of the trip itinerary
   const handleDownloadPDF = async () => {
+    // Safety check: ensure we have trip data
     if (!trip) return;
     
+    // Reset previous export/error states
     setIsExporting(true);
     setMessage(null);
     setError(null);
     
     try {
+      // Get authentication token from local storage
       const token = localStorage.getItem('token');
       
-      console.log("Sending dates to backend:", trip.dates);
-      
-      // Use the full URL with backend port
-      const response = await fetch('http://localhost:5001/api/export/trip/pdf', {
+      // Use environment variable for API base URL, fallback to localhost
+      const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
+            
+      // Make API request to backend to generate PDF
+      const response = await fetch(`${API_URL}/export/trip/pdf`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,21 +53,22 @@ const CityItineraryPrint = () => {
         })
       });
       
+      // Check if response is successful
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to generate PDF');
       }
       
-      // Get the blob from the response
+      // Convert response to blob for file download
       const blob = await response.blob();
       
-      // Create a download link
+      // Create a download link and trigger download
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', `alcove_trip_${trip.cityName.replace(/\s+/g, '_').toLowerCase()}.pdf`);
       
-      // Append to body, click, and clean up
+      // Programmatically click the link to start download
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);
@@ -72,9 +78,10 @@ const CityItineraryPrint = () => {
       console.error("PDF generation error:", error);
       setError(error.message || 'Failed to download PDF');
     } finally {
+      // Reset exporting state
       setIsExporting(false);
       
-      // Clear messages after delay
+      // Clear messages after 5 seconds
       setTimeout(() => {
         setMessage(null);
         setError(null);
@@ -82,18 +89,25 @@ const CityItineraryPrint = () => {
     }
   };
   
+  // Function to email PDF of the trip itinerary
   const handleEmailPDF = async () => {
+    // Safety check: ensure we have trip data
     if (!trip) return;
     
+    // Reset previous email/error states
     setIsEmailing(true);
     setMessage(null);
     setError(null);
     
     try {
+      // Get authentication token from local storage
       const token = localStorage.getItem('token');
       
-      // Use the full URL with backend port
-      const response = await fetch('http://localhost:5001/api/export/trip/email', {
+      // Use environment variable for API base URL, fallback to localhost
+      const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
+      
+      // Make API request to backend to email PDF
+      const response = await fetch(`${API_URL}/export/trip/email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,20 +118,24 @@ const CityItineraryPrint = () => {
         })
       });
       
+      // Parse response data
       const data = await response.json();
       
+      // Check if response is successful
       if (!response.ok) {
         throw new Error(data.message || 'Failed to send email');
       }
       
+      // Set success message
       setMessage(data.message || `Itinerary for ${trip.cityName} sent to your email!`);
     } catch (error) {
       console.error("Email sending error:", error);
       setError(error.message || 'Failed to send email');
     } finally {
+      // Reset emailing state
       setIsEmailing(false);
       
-      // Clear messages after delay
+      // Clear messages after 5 seconds
       setTimeout(() => {
         setMessage(null);
         setError(null);
@@ -125,19 +143,19 @@ const CityItineraryPrint = () => {
     }
   };
   
+  // If no trip data, show loading state
   if (!trip) {
     return <div className="loading">Loading trip details...</div>;
   }
   
-  // Debug log to see what activities are available
-  console.log("Activities for rendering:", trip.activities);
-  
+  // Render the component's UI
   return (
     <div 
       className="print-page"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div className="print-container">
+        {/* Trip header with name and date range */}
         <div className="print-header">
           <h1>Trip to {trip.cityName}</h1>
           <p className="date-range">
@@ -148,6 +166,7 @@ const CityItineraryPrint = () => {
           </p>
         </div>
         
+        {/* Action buttons for PDF and email */}
         <div className="print-actions">
           <button 
             className="download-button"
@@ -174,9 +193,11 @@ const CityItineraryPrint = () => {
           </button>
         </div>
         
+        {/* Display success or error messages */}
         {message && <div className="success-message">{message}</div>}
         {error && <div className="error-message">{error}</div>}
         
+        {/* Preview of the itinerary */}
         <div className="print-preview">
           <h2>Itinerary Preview</h2>
           
