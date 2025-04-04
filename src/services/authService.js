@@ -1,4 +1,3 @@
-// Define the base API URL from environment variable
 const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
 
 export const signIn = async (credentials) => {
@@ -17,7 +16,6 @@ export const signIn = async (credentials) => {
 
     const data = await response.json();
     
-    // Store auth data
     localStorage.setItem('user', JSON.stringify(data.user));
     localStorage.setItem('token', data.token);
     
@@ -32,9 +30,6 @@ export const handleGoogleToken = async (credential) => {
     try {
       const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
       
-      console.log('Sending credential to:', `${API_URL}/auth/google/verify`);
-      console.log('Credential length:', credential.length);
-      
       const response = await fetch(`${API_URL}/auth/google/verify`, {
         method: 'POST',
         headers: {
@@ -43,8 +38,6 @@ export const handleGoogleToken = async (credential) => {
         body: JSON.stringify({ credential }),
       });
   
-      console.log('Response status:', response.status);
-      
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Error response body:', errorText);

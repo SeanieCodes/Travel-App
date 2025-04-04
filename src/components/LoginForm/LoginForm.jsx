@@ -11,7 +11,6 @@ const LoginForm = () => {
   const { setUser } = useContext(UserContext);
   const [error, setError] = useState('');
 
-  // Check if user is redirected with error
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const errorParam = urlParams.get('error');

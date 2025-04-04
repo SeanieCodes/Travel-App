@@ -15,7 +15,6 @@ import { checkAuth } from './services/authService';
 import { getTravelPlan, saveTravelPlan } from './services/travelService';
 import { formatRawDateString, sortActivitiesByTime } from './utils/dateTimeUtils';
 
-// Protected route component to handle authentication
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = checkAuth();
   
@@ -39,14 +38,12 @@ const AppContent = () => {
     const [error, setError] = useState(null);
     const [saveError, setSaveError] = useState(null);
 
-    // Load user's travel data when authentication changes
     useEffect(() => {
         const loadTravelData = async () => {
             try {
                 if (user && !authLoading) {
                     const travelPlan = await getTravelPlan();
                     
-                    // Convert array structure to object structure for frontend
                     const cityDatesObj = {};
                     if (travelPlan.cityDates && travelPlan.cityDates.length > 0) {
                         travelPlan.cityDates.forEach(item => {
@@ -66,7 +63,7 @@ const AppContent = () => {
                         setDateActivities(activitiesObj);
                     }
                 } else if (authLoading) {
-                    return; // Don't set loading to false yet
+                    return;
                 }
             } catch (err) {
                 console.error("Failed to load travel data:", err);
@@ -81,15 +78,12 @@ const AppContent = () => {
         loadTravelData();
     }, [user, authLoading]);
     
-    // Save travel data whenever it changes
     useEffect(() => {
         const saveTravelData = async () => {
             try {
-                setSaveError(null); // Clear previous errors
+                setSaveError(null);
                 
-                // Only save if authenticated, not loading, and we have data to save
                 if (user && !authLoading && !dataLoading && Object.keys(cityDates).length > 0) {
-                    // Convert object structure to array structure for backend
                     const cityDatesArray = Object.entries(cityDates).map(([date, city]) => ({
                         date,
                         cityId: city.id,
@@ -112,7 +106,6 @@ const AppContent = () => {
             }
         };
         
-        // Debounce saving to avoid too many API calls
         const timeoutId = setTimeout(saveTravelData, 500);
         return () => clearTimeout(timeoutId);
     }, [cityDates, dateActivities, user, authLoading, dataLoading]);
@@ -173,10 +166,8 @@ const AppContent = () => {
             )}
             <Router>
                 <Routes>
-                    {/* Public routes */}
                     <Route path="/login" element={<LoginForm />} />
                     
-                    {/* Protected routes */}
                     <Route 
                         path="/" 
                         element={
@@ -248,7 +239,6 @@ const AppContent = () => {
                         } 
                     />
                     
-                    {/* Redirect any other routes to the trips page */}
                     <Route path="*" element={<Navigate to="/trips" />} />
                 </Routes>
             </Router>
@@ -257,7 +247,6 @@ const AppContent = () => {
 };
 
 const App = () => {
-    // Get Google client ID from environment variables
     const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     
     return (

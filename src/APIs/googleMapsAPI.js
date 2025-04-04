@@ -2,12 +2,10 @@ const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api'
 const PROXY_BASE_URL = `${API_URL}/proxy?url=`;
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-// Helper function to ensure we're making secure requests
 function ensureHttps(url) {
   return url.replace('http://', 'https://');
 }
 
-// Helper function to handle API requests through the proxy
 async function proxyFetch(url) {
   try {
     const encodedUrl = encodeURIComponent(ensureHttps(url));
@@ -24,25 +22,18 @@ async function proxyFetch(url) {
   }
 }
 
-/**
- * Get transportation information for a city
- * Including major transit stations, airports, and public transit availability
- */
 export async function getTransportationInfo(city) {
   try {
     if (!city?.name) {
       throw new Error('City information is required');
     }
 
-    // First, search for general transportation info
     const transitUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=public+transportation+in+${encodeURIComponent(city.name)}+${encodeURIComponent(city.country)}&key=${API_KEY}`;
     const transitData = await proxyFetch(transitUrl);
 
-    // Then, search specifically for airports
     const airportUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=airport+in+${encodeURIComponent(city.name)}+${encodeURIComponent(city.country)}&key=${API_KEY}`;
     const airportData = await proxyFetch(airportUrl);
 
-    // Process the results to get meaningful information
     const transitHubs = transitData.results
       .filter(place => 
         place.types.some(type => 
@@ -71,7 +62,6 @@ export async function getTransportationInfo(city) {
         icon: place.icon
       }));
 
-    // Determine the public transit score based on number and variety of options
     const transitTypes = new Set();
     transitData.results.forEach(place => {
       place.types.forEach(type => {
@@ -108,32 +98,23 @@ export async function getTransportationInfo(city) {
   }
 }
 
-/**
- * Get popular attractions and landmarks in a city
- */
 export async function getLandmarks(city) {
   try {
     if (!city?.name) {
       throw new Error('City information is required');
     }
 
-    // Search for tourist attractions and landmarks
     const attractionsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=tourist+attractions+in+${encodeURIComponent(city.name)}+${encodeURIComponent(city.country)}&key=${API_KEY}`;
     const attractionsData = await proxyFetch(attractionsUrl);
 
-    // Search for museums and cultural venues
     const museumsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=museums+in+${encodeURIComponent(city.name)}+${encodeURIComponent(city.country)}&key=${API_KEY}`;
     const museumsData = await proxyFetch(museumsUrl);
 
-    // Combine and process the results
     const attractionsList = [...attractionsData.results, ...museumsData.results]
-      // Remove duplicates based on place_id
       .filter((attraction, index, self) => 
         index === self.findIndex(a => a.place_id === attraction.place_id)
       )
-      // Sort by rating (highest first)
       .sort((a, b) => (b.rating || 0) - (a.rating || 0))
-      // Take top attractions
       .slice(0, 6)
       .map(place => ({
         name: place.name,
@@ -149,7 +130,6 @@ export async function getLandmarks(city) {
         icon: place.icon
       }));
 
-    // Determine if the city is culturally rich based on number of attractions
     const culturalScore = (() => {
       if (attractionsList.length >= 5) return 'Rich';
       if (attractionsList.length >= 3) return 'Good';
@@ -173,32 +153,23 @@ export async function getLandmarks(city) {
   }
 }
 
-/**
- * Get information about local food and restaurants
- */
 export async function getLocalCuisine(city) {
   try {
     if (!city?.name) {
       throw new Error('City information is required');
     }
 
-    // Search for popular restaurants
     const restaurantsUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=best+restaurants+in+${encodeURIComponent(city.name)}+${encodeURIComponent(city.country)}&key=${API_KEY}`;
     const restaurantsData = await proxyFetch(restaurantsUrl);
 
-    // Search for local cuisine specifically
     const localCuisineUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=local+cuisine+${encodeURIComponent(city.name)}+${encodeURIComponent(city.country)}&key=${API_KEY}`;
     const localCuisineData = await proxyFetch(localCuisineUrl);
 
-    // Process and combine results
     const restaurants = [...restaurantsData.results, ...localCuisineData.results]
-      // Remove duplicates
       .filter((restaurant, index, self) => 
         index === self.findIndex(r => r.place_id === restaurant.place_id)
       )
-      // Sort by rating
       .sort((a, b) => (b.rating || 0) - (a.rating || 0))
-      // Take top restaurants
       .slice(0, 5)
       .map(place => ({
         name: place.name,
@@ -214,7 +185,6 @@ export async function getLocalCuisine(city) {
           : null
       }));
 
-    // Calculate cuisine diversity score based on variety of restaurant types
     const cuisineTypes = new Set();
     restaurants.forEach(restaurant => {
       restaurant.cuisineType.forEach(type => cuisineTypes.add(type));
@@ -249,9 +219,6 @@ export async function getLocalCuisine(city) {
   }
 }
 
-/**
- * Get estimated travel times between two cities (if planning multi-city trips)
- */
 export async function getTravelTime(originCity, destinationCity, mode = 'driving') {
   try {
     if (!originCity?.name || !destinationCity?.name) {
@@ -280,9 +247,9 @@ export async function getTravelTime(originCity, destinationCity, mode = 'driving
     
     return {
       travelTimeText: leg.duration.text,
-      travelTimeValue: leg.duration.value, // in seconds
+      travelTimeValue: leg.duration.value,
       distanceText: leg.distance.text,
-      distanceValue: leg.distance.value, // in meters
+      distanceValue: leg.distance.value,
       startAddress: leg.start_address,
       endAddress: leg.end_address,
       steps: leg.steps.map(step => ({
@@ -304,10 +271,6 @@ export async function getTravelTime(originCity, destinationCity, mode = 'driving
   }
 }
 
-/**
- * Geocode a city name to get latitude/longitude
- * Useful if you need precise coordinates for other API calls
- */
 export async function geocodeCity(city) {
   try {
     if (!city?.name) {

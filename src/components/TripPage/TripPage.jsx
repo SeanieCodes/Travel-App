@@ -13,7 +13,6 @@ const TripPage = ({ cityDates, setCityDates, dateActivities, setDateActivities }
   const [deleteError, setDeleteError] = useState(null);
   const [deleteSuccess, setDeleteSuccess] = useState(null);
 
-  // Function to handle city selection from the search
   const handleCitySelect = (city) => {
     navigate('/city-card', { 
       state: { 
@@ -22,9 +21,7 @@ const TripPage = ({ cityDates, setCityDates, dateActivities, setDateActivities }
     });
   };
 
-  // Function to group dates by continuous city stays
   const groupContinuousCityStays = () => {
-    // Sort dates chronologically
     const sortedDates = Object.keys(cityDates).sort();
     if (sortedDates.length === 0) return [];
 
@@ -35,16 +32,13 @@ const TripPage = ({ cityDates, setCityDates, dateActivities, setDateActivities }
       dates: [sortedDates[0]]
     };
 
-    // Group continuous dates with the same city
     for (let i = 1; i < sortedDates.length; i++) {
       const currentDate = sortedDates[i];
       const currentCity = cityDates[currentDate];
       
-      // If same city as previous date, add to current trip
       if (currentCity.id === currentTrip.cityId) {
         currentTrip.dates.push(currentDate);
       } else {
-        // New city - end the current trip and start a new one
         trips.push(currentTrip);
         currentTrip = {
           cityId: currentCity.id,
@@ -54,7 +48,6 @@ const TripPage = ({ cityDates, setCityDates, dateActivities, setDateActivities }
       }
     }
     
-    // Add the last trip
     trips.push(currentTrip);
     
     return trips;
@@ -72,7 +65,6 @@ const TripPage = ({ cityDates, setCityDates, dateActivities, setDateActivities }
   };
   
   const handleDeleteClick = (trip) => {
-    // Open confirmation dialog
     setConfirmDelete(trip);
     setDeleteError(null);
   };
@@ -93,17 +85,14 @@ const TripPage = ({ cityDates, setCityDates, dateActivities, setDateActivities }
     setDeleteError(null);
     
     try {
-      // Send delete request to backend
       await deleteTripDates(confirmDelete.dates);
       
-      // Update local state to reflect the deletion
       const newCityDates = { ...cityDates };
       confirmDelete.dates.forEach(date => {
         delete newCityDates[date];
       });
       setCityDates(newCityDates);
       
-      // Also update dateActivities (for any activities on those dates)
       setDateActivities(prev => {
         const newActivities = { ...prev };
         confirmDelete.dates.forEach(date => {
@@ -112,13 +101,11 @@ const TripPage = ({ cityDates, setCityDates, dateActivities, setDateActivities }
         return newActivities;
       });
       
-      // Show success message
       setDeleteSuccess(`Successfully deleted trip to ${confirmDelete.cityName}`);
       setTimeout(() => {
         setDeleteSuccess(null);
       }, 3000);
       
-      // Close dialog
       setConfirmDelete(null);
     } catch (error) {
       setDeleteError("Failed to delete trip. Please try again.");
@@ -137,12 +124,10 @@ const TripPage = ({ cityDates, setCityDates, dateActivities, setDateActivities }
     >
       <h1>My Trips</h1>
       
-      {/* City Search component */}
       <div className="trip-search-container">
         <CitySearch onCitySelect={handleCitySelect} />
       </div>
       
-      {/* Success notification */}
       {deleteSuccess && (
         <div className="success-notification">
           {deleteSuccess}
@@ -210,7 +195,6 @@ const TripPage = ({ cityDates, setCityDates, dateActivities, setDateActivities }
         )}
       </div>
       
-      {/* Confirmation Dialog */}
       {confirmDelete && (
         <div className="delete-confirmation-overlay">
           <div className="delete-confirmation-dialog">

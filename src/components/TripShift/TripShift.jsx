@@ -25,13 +25,11 @@ const TripShift = ({ cityDates, setCityDates, dateActivities, setDateActivities 
   const handleDateRangeSelect = async (newDates) => {
     if (!trip) return;
     
-    // Ensure the new date range has the same number of days
     if (newDates.length !== trip.dates.length) {
       setError(`Please select exactly ${trip.dates.length} days to match your original trip`);
       return;
     }
     
-    // Check if any of the new dates already have assigned cities
     const conflictingDates = newDates.filter(date => 
       cityDates[date] && cityDates[date].id !== trip.cityId
     );
@@ -47,35 +45,28 @@ const TripShift = ({ cityDates, setCityDates, dateActivities, setDateActivities 
     setIsShifting(true);
     
     try {
-      // Map old dates to new dates for backend processing
       const dateMapping = trip.dates.map((oldDate, index) => ({
         oldDate,
         newDate: newDates[index]
       }));
       
-      // Call backend API to shift the trip
       await shiftTripDates(dateMapping);
       
-      // Update local state to reflect the shift
       const newCityDates = { ...cityDates };
       const newDateActivities = { ...dateActivities };
       
-      // Remove old dates
       trip.dates.forEach(oldDate => {
         delete newCityDates[oldDate];
       });
       
-      // Add new dates
       newDates.forEach((newDate, index) => {
         const oldDate = trip.dates[index];
         
-        // Copy city assignment to new date
         newCityDates[newDate] = {
           id: trip.cityId,
           name: trip.cityName
         };
         
-        // Copy activities from old date to new date if they exist
         if (dateActivities[oldDate]) {
           newDateActivities[newDate] = [...dateActivities[oldDate]];
           delete newDateActivities[oldDate];
@@ -85,7 +76,6 @@ const TripShift = ({ cityDates, setCityDates, dateActivities, setDateActivities 
       setCityDates(newCityDates);
       setDateActivities(newDateActivities);
       
-      // Show success message
       setSuccess(`Successfully shifted trip to ${trip.cityName}`);
       setTimeout(() => {
         navigate('/trips');
