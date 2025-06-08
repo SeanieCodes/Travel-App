@@ -32,12 +32,9 @@ button {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
-.itinerary-page {
+  .itinerary-page {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    top: 0; right: 0; bottom: 0; left: 0;
     width: 100%;
     min-height: 100vh;
     overflow-y: auto;
@@ -45,29 +42,23 @@ button {
     flex-direction: column;
     align-items: center;
     padding: 2rem;
-    background-image: url('');
-    background-repeat: repeat;
-    background-size: 380px;
-    background-position: center -50px;
-    background-attachment: fixed;
     opacity: 0.8;
-}
-
-.itinerary-page h1 {
+  }
+  
+  .itinerary-page h1 {
     font-size: 2.5rem;
     font-weight: 300;
-    margin-bottom: 2rem;
+    margin: 1rem 0 2rem;
     letter-spacing: -0.5px;
     color: var(--dark-blue);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin: 1rem 0;
     background-color: var(--white);
     border: 2px solid var(--primary-pink);
+    border-radius: 12px;
+    padding: 1.5rem;
     box-shadow: 0 0 20px var(--glow);
-}
-
-.itinerary-container {
+  }
+  
+  .itinerary-container {
     width: 800px;
     max-width: 100%;
     background-color: var(--white);
@@ -75,17 +66,17 @@ button {
     box-shadow: 0 4px 20px var(--shadow), 0 0 40px var(--glow);
     padding: 2rem;
     margin-bottom: 2rem;
-}
-
-.date-header {
+  }
+  
+  .date-header {
     margin-bottom: 2rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--gray);
-}
-
-.date-header h2 {
+  }
+  
+  .date-header h2 {
     width: fit-content;
-    margin: 0 auto 0.5rem auto;
+    margin: 0 auto 0.5rem;
     font-size: 1.8rem;
     font-weight: 300;
     color: var(--dark-blue);
@@ -93,99 +84,81 @@ button {
     border: 2px solid var(--primary-pink);
     border-radius: 12px;
     box-shadow: 0 0 20px var(--glow);
-}
-
-.date-header h3 {
+  }
+  
+  .date-header h3 {
     font-size: 1.4rem;
     font-weight: 300;
     color: var(--dark-blue);
     text-align: center;
-}
-
-.add-activity {
+  }
+  
+  .ai-suggestions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.5rem 0;
+  }
+  
+  .suggestion-box {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--light-pink);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .add-activity {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
-}
-
-.time-input {
+  }
+  
+  .time-input {
     width: 150px;
     padding: 0.8rem;
     border-radius: 8px;
     border: 2px solid var(--primary-pink);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.2rem;
     font-weight: 300;
     color: var(--dark-blue);
     background-color: var(--white);
     box-shadow: 0 0 20px var(--glow);
-}
-
-.time-input::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-    color: var(--primary-pink);
-}
-
-.time-input::-webkit-time-picker-popup {
-    background-color: var(--white);
-    border: 2px solid var(--primary-pink);
-    border-radius: 8px;
-}
-
-.time-input:focus {
-    outline: none;
-    border-color: var(--primary-pink);
-    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
-}
-
-.description-input {
+  }
+  
+  .description-input {
     flex: 1;
     padding: 0.8rem;
     font-size: 1.2rem;
     border: 2px solid var(--primary-pink);
     border-radius: 8px;
     color: var(--dark-blue);
+    background-color: var(--white);
     box-shadow: 0 0 20px var(--glow);
-}
-
-.description-input:focus {
+  }
+  
+  .time-input:focus,
+  .description-input:focus {
     outline: none;
     border-color: var(--primary-pink);
     box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
-}
-
-.add-button {
+  }
+  
+  .add-button {
     padding: 0.8rem 1.5rem;
     font-size: 1.2rem;
     font-weight: 400;
-    color: var(--white);
-    background-color: var(--primary-pink);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 0 20px var(--glow);
-
-}
-
-.add-button:hover {
-    background-color: var(--primary-pink);
-    transform: translateY(-1px);
-    box-shadow: 0 0 20px var(--glow);
-}
-
-.add-button:focus {
-    outline: none;
-    box-shadow: 0 0 20px var(--glow);
-}
-
-.activities-list {
+  }
+  
+  .activities-list {
     margin-top: 2rem;
-}
-
-.activities-list h3 {
+  }
+  
+  .activities-list h3 {
     width: fit-content;
-    margin: 0 auto 1rem auto;
+    margin: 0 auto 1rem;
     font-size: 1.4rem;
     font-weight: 300;
     color: var(--dark-blue);
@@ -193,9 +166,9 @@ button {
     border: 2px solid var(--primary-pink);
     border-radius: 12px;
     box-shadow: 0 0 20px var(--glow);
-}
-
-.activity-item {
+  }
+  
+  .activity-item {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -205,34 +178,34 @@ button {
     border-radius: 8px;
     transition: all 0.2s ease;
     box-shadow: 0 0 20px var(--glow);
-}
-
-.activity-time {
+  }
+  
+  .activity-time {
     font-size: 1.2rem;
     font-weight: 500;
     color: var(--dark-blue);
     min-width: 100px;
-}
-
-.activity-description {
+  }
+  
+  .activity-description {
     font-size: 1.2rem;
     font-weight: 400;
     color: var(--dark-blue);
     flex: 1;
-}
-
-.activity-actions {
+  }
+  
+  .activity-actions {
     display: flex;
-    gap: 1rem;  
+    gap: 1rem;
     margin-left: auto;
-}
-
-.city-link {
+  }
+  
+  .city-link {
     color: var(--darker-pink);
     cursor: pointer;
     transition: all 0.2s ease;
-}
-
-.city-link:hover {
+  }
+  
+  .city-link:hover {
     text-decoration: underline;
-}
+  }  

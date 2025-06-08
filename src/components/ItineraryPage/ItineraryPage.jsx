@@ -5,6 +5,8 @@ import CitySearch from '../CitySearch/CitySearch';
 import backgroundImage from '../../assets/bunny.png';
 import './ItineraryPage.css';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+
 const ItineraryPage = ({
   cityDates,
   activities,
@@ -24,7 +26,7 @@ const ItineraryPage = ({
   const formattedDate = formatDateForDisplay(date);
 
   const [suggestion, setSuggestion] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading]       = useState(false);
 
   const handleAddActivity = () => {
     if (newActivity.time && newActivity.description) {
@@ -76,26 +78,30 @@ const ItineraryPage = ({
   const fetchSuggestions = async () => {
     if (!cityForThisDate) return;
     setLoading(true);
+
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL || ''}/api/ai/itinerary-suggestions`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          },
-          body: JSON.stringify({
-            city: cityForThisDate.name,
-            dates: [date],
-            preferences: []
-          })
-        }
-      );
+      const res = await fetch(`${API_BASE}/ai/itinerary-suggestions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          city: cityForThisDate.name,
+          dates: [date],
+          preferences: []
+        })
+      });
+
+      if (!res.ok) {
+        console.error('AI suggestion error:', res.status, await res.text());
+        return;
+      }
+
       const { suggestion } = await res.json();
       setSuggestion(suggestion);
     } catch (err) {
-      console.error(err);
+      console.error('Fetch error:', err);
     } finally {
       setLoading(false);
     }
@@ -104,9 +110,9 @@ const ItineraryPage = ({
   const applySuggestions = () => {
     suggestion
       .split('\n')
-      .filter((l) => l.trim())
-      .forEach((line) => {
-        const parts = line.split('-').map((p) => p.trim());
+      .filter(l => l.trim())
+      .forEach(line => {
+        const parts = line.split('-').map(p => p.trim());
         if (parts.length >= 2) {
           onAddActivity(date, {
             time: parts[0],
@@ -143,22 +149,21 @@ const ItineraryPage = ({
         </div>
 
         {cityForThisDate && (
-          <div className="ai-suggestions" style={{ margin: '1rem 0' }}>
+          <div className="ai-suggestions">
             <button
               className="add-button"
               onClick={fetchSuggestions}
               disabled={loading}
             >
-              {loading ? 'Loading…' : '💡 Suggest Activities'}
+              {loading ? 'Loading…' : 'Suggest Activities'}
             </button>
 
             {suggestion && (
-              <div className="suggestion-box" style={{ marginTop: '1rem' }}>
+              <div className="suggestion-box">
                 <pre style={{ whiteSpace: 'pre-wrap' }}>{suggestion}</pre>
                 <button
                   className="save-button"
                   onClick={applySuggestions}
-                  style={{ marginTop: '0.5rem' }}
                 >
                   Add All to Itinerary
                 </button>
@@ -171,7 +176,7 @@ const ItineraryPage = ({
           <input
             type="time"
             value={newActivity.time}
-            onChange={(e) =>
+            onChange={e =>
               setNewActivity({ ...newActivity, time: e.target.value })
             }
             className="time-input"
@@ -180,7 +185,7 @@ const ItineraryPage = ({
             type="text"
             placeholder="What's your plan?"
             value={newActivity.description}
-            onChange={(e) =>
+            onChange={e =>
               setNewActivity({ ...newActivity, description: e.target.value })
             }
             className="description-input"
@@ -203,7 +208,7 @@ const ItineraryPage = ({
                   <input
                     type="time"
                     value={editActivity.time}
-                    onChange={(e) =>
+                    onChange={e =>
                       setEditActivity({ ...editActivity, time: e.target.value })
                     }
                     className="time-input"
@@ -211,7 +216,7 @@ const ItineraryPage = ({
                   <input
                     type="text"
                     value={editActivity.description}
-                    onChange={(e) =>
+                    onChange={e =>
                       setEditActivity({ ...editActivity, description: e.target.value })
                     }
                     className="description-input"
