@@ -194,9 +194,29 @@ button {
     text-decoration: underline;
   }
 
-    .ai-suggestions {
+.ai-suggestions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 2rem 0;
   }
+  
+  .suggestion-board {
+    background-color: var(--light-pink);
+    color: var(--dark-blue);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 0 20px var(--glow);
+  }
+  
+  .suggestion-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }  
   
   .suggestion-box {
     background-color: var(--white);
@@ -208,12 +228,6 @@ button {
     margin: 0 0 0 1.5rem;
     line-height: 1.6;
     font-size: 1.2rem;
-  }
-  
-  .suggestion-actions {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
   }
   
   .activities-header {
