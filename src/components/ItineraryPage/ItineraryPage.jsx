@@ -25,9 +25,11 @@ const ItineraryPage = ({
   const dateActivities = activities[date] || [];
   const formattedDate = formatDateForDisplay(date);
 
+  // AI suggestion state
   const [suggestion, setSuggestion] = useState('');
-  const [loading, setLoading]       = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  // --- CRUD helpers --------------------------------------------------
   const handleAddActivity = () => {
     if (newActivity.time && newActivity.description) {
       onAddActivity(date, newActivity);
@@ -39,12 +41,10 @@ const ItineraryPage = ({
     setEditingIndex(index);
     setEditActivity(dateActivities[index]);
   };
-
   const cancelEditing = () => {
     setEditingIndex(null);
     setEditActivity({ time: '', description: '' });
   };
-
   const saveEdit = (index) => {
     if (editActivity.time && editActivity.description) {
       onUpdateActivity(date, index, editActivity);
@@ -52,28 +52,21 @@ const ItineraryPage = ({
       setEditActivity({ time: '', description: '' });
     }
   };
-
-  const handleDelete = (index) => {
-    onDeleteActivity(date, index);
-  };
+  const handleDelete = (index) => onDeleteActivity(date, index);
 
   const handleCityClick = () => {
-    if (cityForThisDate) {
-      navigate('/city-card', {
-        state: {
-          city: {
-            id: cityForThisDate.id,
-            name: cityForThisDate.name.split(',')[0].trim(),
-            country: cityForThisDate.name.split(',')[1]?.trim() || ''
-          }
+    if (!cityForThisDate) return;
+    navigate('/city-card', {
+      state: {
+        city: {
+          id: cityForThisDate.id,
+          name: cityForThisDate.name.split(',')[0].trim(),
+          country: cityForThisDate.name.split(',')[1]?.trim() || ''
         }
-      });
-    }
+      }
+    });
   };
-
-  const handleCitySelect = (city) => {
-    navigate('/city-card', { state: { city } });
-  };
+  const handleCitySelect = (city) => navigate('/city-card', { state: { city } });
 
   const fetchSuggestions = async () => {
     if (!cityForThisDate) return;
@@ -84,12 +77,13 @@ const ItineraryPage = ({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({
           city: cityForThisDate.name,
           dates: [date],
-          preferences: []
+          preferences: [],
+          strictOneDay: true
         })
       });
 
@@ -97,7 +91,6 @@ const ItineraryPage = ({
         console.error('AI suggestion error:', res.status, await res.text());
         return;
       }
-
       const { suggestion } = await res.json();
       setSuggestion(suggestion);
     } catch (err) {
@@ -110,9 +103,9 @@ const ItineraryPage = ({
   const applySuggestions = () => {
     suggestion
       .split('\n')
-      .filter(l => l.trim())
-      .forEach(line => {
-        const parts = line.split('-').map(p => p.trim());
+      .filter((l) => l.trim())
+      .forEach((line) => {
+        const parts = line.split('-').map((p) => p.trim());
         if (parts.length >= 2) {
           onAddActivity(date, {
             time: parts[0],
@@ -121,6 +114,10 @@ const ItineraryPage = ({
         }
       });
   };
+
+  const suggestionLines = suggestion
+    .split('\n')
+    .filter((l) => l.trim());
 
   return (
     <div
@@ -155,18 +152,21 @@ const ItineraryPage = ({
               onClick={fetchSuggestions}
               disabled={loading}
             >
-              {loading ? 'Loading…' : 'Suggest Activities'}
+              {loading ? 'Loading…' : '💡 Suggest Activities'}
             </button>
 
             {suggestion && (
               <div className="suggestion-box">
-                <pre style={{ whiteSpace: 'pre-wrap' }}>{suggestion}</pre>
-                <button
-                  className="save-button"
-                  onClick={applySuggestions}
-                >
-                  Add All to Itinerary
-                </button>
+                <ul className="suggestion-list">
+                  {suggestionLines.map((line, i) => (
+                    <li key={i}>{line}</li>
+                  ))}
+                </ul>
+                <div className="suggestion-actions">
+                  <button className="add-button" onClick={applySuggestions}>
+                    Add All to Itinerary
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -176,7 +176,7 @@ const ItineraryPage = ({
           <input
             type="time"
             value={newActivity.time}
-            onChange={e =>
+            onChange={(e) =>
               setNewActivity({ ...newActivity, time: e.target.value })
             }
             className="time-input"
@@ -185,7 +185,7 @@ const ItineraryPage = ({
             type="text"
             placeholder="What's your plan?"
             value={newActivity.description}
-            onChange={e =>
+            onChange={(e) =>
               setNewActivity({ ...newActivity, description: e.target.value })
             }
             className="description-input"
@@ -208,7 +208,7 @@ const ItineraryPage = ({
                   <input
                     type="time"
                     value={editActivity.time}
-                    onChange={e =>
+                    onChange={(e) =>
                       setEditActivity({ ...editActivity, time: e.target.value })
                     }
                     className="time-input"
@@ -216,8 +216,11 @@ const ItineraryPage = ({
                   <input
                     type="text"
                     value={editActivity.description}
-                    onChange={e =>
-                      setEditActivity({ ...editActivity, description: e.target.value })
+                    onChange={(e) =>
+                      setEditActivity({
+                        ...editActivity,
+                        description: e.target.value
+                      })
                     }
                     className="description-input"
                   />
