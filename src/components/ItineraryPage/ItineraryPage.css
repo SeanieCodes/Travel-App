@@ -194,19 +194,18 @@ button {
     text-decoration: underline;
   }
 
+    .ai-suggestions {
+    margin: 2rem 0;
+  }
+  
   .suggestion-box {
-    width: 100%;
-    max-width: 600px;
     background-color: var(--white);
     color: var(--dark-blue);
-    padding: 1rem 1.25rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
   
   .suggestion-list {
-    list-style-type: disc;
-    margin-left: 1.5rem;
+    list-style: disc;
+    margin: 0 0 0 1.5rem;
     line-height: 1.6;
     font-size: 1.2rem;
   }
@@ -217,13 +216,9 @@ button {
     margin-top: 1rem;
   }
   
-  .suggestion-actions .add-button {
-    border: none;       
-  }
-
-  .ai-suggestions {
+  .activities-header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    margin: 1.5rem 0;
+    margin-bottom: 1rem;
   }
