@@ -17,7 +17,7 @@ const ItineraryPage = ({ cityDates, activities, onAddActivity, onUpdateActivity,
   const [newActivity, setNewActivity] = useState({ time: '', description: '' });
   const [editingIndex, setEditingIndex] = useState(null);
   const [editActivity, setEditActivity] = useState({ time: '', description: '' });
-  const [suggestion, setSuggestion] = useState('');
+  const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const handleAddActivity = () => {
@@ -26,8 +26,15 @@ const ItineraryPage = ({ cityDates, activities, onAddActivity, onUpdateActivity,
       setNewActivity({ time: '', description: '' });
     }
   };
-  const startEditing = idx => { setEditingIndex(idx); setEditActivity(dateActivities[idx]); };
-  const cancelEditing = () => { setEditingIndex(null); setEditActivity({ time: '', description: '' }); };
+
+  const startEditing = idx => {
+    setEditingIndex(idx);
+    setEditActivity(dateActivities[idx]);
+  };
+  const cancelEditing = () => {
+    setEditingIndex(null);
+    setEditActivity({ time: '', description: '' });
+  };
   const saveEdit = idx => {
     if (editActivity.time && editActivity.description) {
       onUpdateActivity(date, idx, editActivity);
@@ -47,7 +54,12 @@ const ItineraryPage = ({ cityDates, activities, onAddActivity, onUpdateActivity,
   const fetchSuggestions = async () => {
     if (!cityForThisDate) return;
     setLoading(true);
-    const prompt = `List 5 travel places in ${cityForThisDate.name} for a single day ${date} as noun phrases only, one per line, no times, no dashes, no bullet points.`;
+    const prompt = `
+You are a travel assistant.
+INPUT: city="${cityForThisDate.name}", date="${date}".
+TASK: Return EXACTLY a JSON array of 5 place names (noun phrases), e.g. ["Place A","Place B","Place C","Place D","Place E"].
+No extra text.
+`;
     try {
       const res = await fetch(`${API_BASE}/ai/itinerary-suggestions`, {
         method: 'POST',
@@ -55,14 +67,15 @@ const ItineraryPage = ({ cityDates, activities, onAddActivity, onUpdateActivity,
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        body: JSON.stringify({ city: cityForThisDate.name, dates: [date], preferences: [], promptOverride: prompt })
+        body: JSON.stringify({ city: cityForThisDate.name, dates: [date], promptOverride: prompt })
       });
       if (!res.ok) {
         console.error('AI suggestion error:', await res.text());
         return;
       }
       const { suggestion } = await res.json();
-      setSuggestion(suggestion);
+      const parsed = JSON.parse(suggestion);
+      setPlaces(parsed);
     } catch (err) {
       console.error('Fetch error:', err);
     } finally {
@@ -71,12 +84,8 @@ const ItineraryPage = ({ cityDates, activities, onAddActivity, onUpdateActivity,
   };
 
   const applySuggestions = () => {
-    suggestion.split('\n').filter(line => line.trim()).forEach(line => {
-      onAddActivity(date, { time: '', description: line.trim() });
-    });
+    places.forEach(place => onAddActivity(date, { time: '', description: place }));
   };
-
-  const suggestionLines = suggestion.split('\n').filter(line => line.trim());
 
   return (
     <div className="itinerary-page" style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -99,24 +108,18 @@ const ItineraryPage = ({ cityDates, activities, onAddActivity, onUpdateActivity,
         </div>
 
         {cityForThisDate && (
-          <div className="ai-suggestions">
-            <button
-              className="add-button"
-              onClick={fetchSuggestions}
-              disabled={loading}
-            >
-              {loading ? 'Loading…' : 'Suggest Activities'}
+          <div className="ai-suggestions" style={{ margin: '2rem 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <button className="add-button" onClick={fetchSuggestions} disabled={loading}>
+              {loading ? 'Loading…' : 'AI Suggestions'}
             </button>
 
-            {suggestionLines.length > 0 && (
-              <div className="suggestion-box">
-                {suggestionLines.map((place, idx) => (
+            {places.length > 0 && (
+              <div className="suggestion-box" style={{ marginTop: '1.5rem' }}>
+                {places.map((place, idx) => (
                   <div key={idx} className="suggestion-board activity-item">{place}</div>
                 ))}
                 <div className="suggestion-actions">
-                  <button className="add-button" onClick={applySuggestions}>
-                    Add All to Itinerary
-                  </button>
+                  <button className="add-button" onClick={applySuggestions}>Add All to Itinerary</button>
                 </div>
               </div>
             )}
@@ -137,45 +140,43 @@ const ItineraryPage = ({ cityDates, activities, onAddActivity, onUpdateActivity,
             onChange={e => setNewActivity({ ...newActivity, description: e.target.value })}
             className="description-input"
           />
-          <button className="add-button" onClick={handleAddActivity}>
-            Add to Schedule
-          </button>
+          <button className="add-button" onClick={handleAddActivity}>Add to Schedule</button>
         </div>
 
         <div className="activities-list">
           <div className="activities-header">
             <h3>Activities</h3>
             {dateActivities.length > 0 && (
-              <button
-                className="delete-button clear-all"
-                onClick={clearAllActivities}
-              >
-                Clear All
-              </button>
+              <button className="delete-button clear-all" onClick={clearAllActivities}>Clear All</button>
             )}
           </div>
 
           {dateActivities.map((activity, idx) => (
             <div key={idx} className="activity-item">
               {editingIndex === idx ? (
-                <>{/* editing inputs/buttons here */}</>
+                <>
+                  <input
+                    type="time"
+                    value={editActivity.time}
+                    onChange={e => setEditActivity({ ...editActivity, time: e.target.value })}
+                    className="time-input"
+                  />
+                  <input
+                    type="text"
+                    value={editActivity.description}
+                    onChange={e => setEditActivity({ ...editActivity, description: e.target.value })}
+                    className="description-input"
+                  />
+                  <button className="save-button" onClick={() => saveEdit(idx)}>Save</button>
+                  <button className="cancel-button" onClick={cancelEditing}>Cancel</button>
+                </>
               ) : (
                 <>
                   <span className="activity-time">{activity.time}</span>
                   <span className="activity-description">{activity.description}</span>
                   <div className="activity-actions">
-                    <button
-                      className="edit-button"
-                      onClick={() => startEditing(idx)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="delete-button"
-                      onClick={() => handleDelete(idx)}
-                    >
-                      Delete
-                    </button>
+                    <button className="edit-button" onClick={() => startEditing(idx)}>Edit</button>
+                    <button className="delete-button" onClick={() => handleDelete(idx)}>Delete</button>
                   </div>
                 </>
               )}
